@@ -21,7 +21,7 @@ interface TaskInstanceDao {
     suspend fun delete(taskInstance: TaskInstance)
 
     @Query("SELECT * FROM task_instances WHERE taskId = :taskId ORDER BY date ASC")
-    fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstance>>
+    suspend fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstance>>
 
     @Query("SELECT COUNT(*) FROM task_instances WHERE taskId = :taskId AND isCompleted = 1")
     suspend fun getCompletedCount(taskId: Int): Int

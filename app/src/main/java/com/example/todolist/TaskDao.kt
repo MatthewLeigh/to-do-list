@@ -21,12 +21,12 @@ interface TaskDao {
     suspend fun delete(task: Task)
 
     @Query("SELECT * FROM tasks ORDER BY taskId ASC")
-    fun getAllTasks(): LiveData<List<Task>>
+    suspend fun getAllTasks(): LiveData<List<Task>>
 
     @Query("SELECT * FROM tasks WHERE taskId = :taskId LIMIT 1")
-    fun getTaskById(taskId: Int): LiveData<Task>
+    suspend fun getTaskById(taskId: Int): LiveData<Task>
 
     @Query("SELECT * FROM tasks WHERE frequency = :frequency ORDER BY taskId ASC")
-    fun getTasksByFrequency(frequency: Frequency): LiveData<List<Task>>
+    suspend fun getTasksByFrequency(frequency: Frequency): LiveData<List<Task>>
 
 }
