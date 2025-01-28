@@ -16,10 +16,10 @@ class TaskRepository(private val taskDao: TaskDao) {
         taskDao.delete(task)
     }
 
-    val getAllTasks: LiveData<List<Task>> = taskDao.getAllTasks()
+    suspend fun getAllTasks(): LiveData<List<Task>> = taskDao.getAllTasks()
 
-    fun getTaskById(taskId: Int): LiveData<Task> = taskDao.getTaskById(taskId)
+    suspend fun getTaskById(taskId: Int): LiveData<Task> = taskDao.getTaskById(taskId)
 
-    fun getTasksByFrequency(frequency: Frequency): LiveData<List<Task>> = taskDao.getTasksByFrequency(frequency)
+    suspend fun getTasksByFrequency(frequency: Frequency): LiveData<List<Task>> = taskDao.getTasksByFrequency(frequency)
 
 }
