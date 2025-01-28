@@ -1,0 +1,28 @@
+package com.example.todolist
+
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+
+@Dao
+interface TaskInstanceDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(taskInstance: TaskInstance)
+
+    @Delete
+    suspend fun delete(taskInstance: TaskInstance)
+
+    @Query("SELECT * FROM task_instances WHERE taskId = :taskId ORDER BY date ASC")
+    fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstance>>
+
+    @Query("SELECT COUNT(*) FROM task_instances WHERE taskId = :taskId AND isCompleted = 1")
+    suspend fun getCompletedCount(taskId: Int): Int
+
+    @Query("SELECT COUNT(*) FROM task_instances WHERE taskId = :taskId")
+    suspend fun getTotalInstancesCount(taskId: Int): Int
+}
