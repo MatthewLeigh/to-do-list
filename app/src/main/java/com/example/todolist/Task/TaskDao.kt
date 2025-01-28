@@ -1,4 +1,4 @@
-package com.example.todolist
+package com.example.todolist.Task
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.todolist.Frequency
 
 @Dao
 interface TaskDao {
@@ -21,7 +22,7 @@ interface TaskDao {
     suspend fun delete(task: Task)
 
     @Query("SELECT * FROM tasks ORDER BY taskId ASC")
-    suspend fun getAllTasks(): LiveData<List<Task>>
+    fun getAllTasks(): LiveData<List<Task>>
 
     @Query("SELECT * FROM tasks WHERE taskId = :taskId LIMIT 1")
     suspend fun getTaskById(taskId: Int): LiveData<Task>

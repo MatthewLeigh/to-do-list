@@ -1,4 +1,4 @@
-package com.example.todolist
+package com.example.todolist.Task
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.example.todolist.Frequency
 import java.time.LocalDate
 
 

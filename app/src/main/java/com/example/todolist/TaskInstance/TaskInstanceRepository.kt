@@ -1,6 +1,7 @@
-package com.example.todolist
+package com.example.todolist.TaskInstance
 
 import androidx.lifecycle.LiveData
+import com.example.todolist.Task.TaskInstance
 
 class TaskInstanceRepository(private val taskInstanceDao: TaskInstanceDao) {
 
@@ -16,6 +17,6 @@ class TaskInstanceRepository(private val taskInstanceDao: TaskInstanceDao) {
         taskInstanceDao.delete(taskInstance)
     }
 
-    suspend fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstance>> = taskInstanceDao.getInstancesForTask(taskId)
+    fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstance>> = taskInstanceDao.getInstancesForTask(taskId)
 
 }
