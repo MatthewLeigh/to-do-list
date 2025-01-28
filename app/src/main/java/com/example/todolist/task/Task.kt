@@ -17,7 +17,7 @@ data class Task(
     @ColumnInfo(name = "title") val taskTitle: String,
     @ColumnInfo(name = "description") val taskDescription: String?,
     @ColumnInfo(name = "hexColor") val taskHexColor: String,
-    @ColumnInfo(name = "icon") val taskIcon: String,
+    @ColumnInfo(name = "category") val taskCategory: String?,
     @ColumnInfo(name = "frequency") val taskFrequency: Frequency,
     @ColumnInfo(name = "startDate") val taskStartDate: LocalDate,
     @ColumnInfo(name = "endDate") val taskEndDate: LocalDate?
