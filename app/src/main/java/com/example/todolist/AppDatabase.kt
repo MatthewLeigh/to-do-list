@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.Room
 import androidx.room.TypeConverters
-import com.example.todolist.Task.Task
-import com.example.todolist.Task.TaskDao
-import com.example.todolist.TaskInstance.TaskInstanceDao
+import com.example.todolist.task.Task
+import com.example.todolist.task.TaskDao
+import com.example.todolist.taskInstance.TaskInstance
+import com.example.todolist.taskInstance.TaskInstanceDao
 
-@Database(entities = [Task::class], version = 1, exportSchema = false)
+@Database(entities = [Task::class, TaskInstance::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getTasksDao(): TaskDao
@@ -25,8 +26,11 @@ abstract class AppDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
-                    "task_database"
-                ).build()
+                    "database"
+                )
+                .addTypeConverter(Converters())
+                .fallbackToDestructiveMigration()
+                .build()
                 INSTANCE = instance
                 instance
             }
