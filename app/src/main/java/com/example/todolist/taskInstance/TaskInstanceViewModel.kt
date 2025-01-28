@@ -1,10 +1,9 @@
-package com.example.todolist.TaskInstance
+package com.example.todolist.taskInstance
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.todolist.Task.TaskInstance
 import com.example.todolist.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

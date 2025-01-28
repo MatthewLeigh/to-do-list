@@ -1,7 +1,6 @@
-package com.example.todolist.TaskInstance
+package com.example.todolist.taskInstance
 
 import androidx.lifecycle.LiveData
-import com.example.todolist.Task.TaskInstance
 
 class TaskInstanceRepository(private val taskInstanceDao: TaskInstanceDao) {
 
