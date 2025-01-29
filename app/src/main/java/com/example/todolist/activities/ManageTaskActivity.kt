@@ -38,7 +38,7 @@ class ManageTaskActivity : AppCompatActivity() {
     private var manageTaskId = -1
     private var manageIsCompleted = false
     private var manageLocalDateTime = LocalDateTime.now()
-    private var selectedColor = Color.BLACK // Default color
+    private var manageColor = Color.BLACK
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,9 +100,9 @@ class ManageTaskActivity : AppCompatActivity() {
 
         // Color Picker
         manageColorButton.setOnClickListener {
-            AmbilWarnaDialog(this, selectedColor, object : AmbilWarnaDialog.OnAmbilWarnaListener {
+            AmbilWarnaDialog(this, manageColor, object : AmbilWarnaDialog.OnAmbilWarnaListener {
                 override fun onOk(dialog: AmbilWarnaDialog?, color: Int) {
-                    selectedColor = color
+                    manageColor = color
                     manageColorButton.setBackgroundColor(color)
                     manageColorText.text = String.format("#%06X", 0xFFFFFF and color) // Convert to hex
                 }
@@ -115,33 +115,32 @@ class ManageTaskActivity : AppCompatActivity() {
         val intentType = intent.getStringExtra("intentType")
 
         if (intentType == "Update") {
-            val taskDateTimeString = intent.getStringExtra("taskDueDateTime")
-            val taskDateTime = taskDateTimeString?.let {
-                LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            }
 
-            selectedColor = intent.getIntExtra("taskHexColor", Color.BLACK)
+            val taskDateTimeString = intent.getStringExtra("taskDueDateTime")
+            val taskDateTime = taskDateTimeString?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME) }
+
+            manageColor = intent.getIntExtra("taskHexColor", Color.BLACK)
 
             manageTaskId = intent.getIntExtra("taskId", -1)
             manageTaskTitle.setText(intent.getStringExtra("taskTitle"))
             manageTaskDescription.setText(intent.getStringExtra("taskDescription"))
-            manageColorText.text = String.format("#%06X", 0xFFFFFF and selectedColor)
+            manageColorText.text = String.format("#%06X", 0xFFFFFF and manageColor)
             manageTaskCategoryAutoComplete.setText(intent.getStringExtra("taskCategory"), false)
             manageDueDateLabel.text = taskDateTime?.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
             manageDueTimeLabel.text = taskDateTime?.format(DateTimeFormatter.ofPattern("hh:mm a"))
             manageIsCompleted = intent.getBooleanExtra("taskIsCompleted", false)
 
-            manageColorButton.setBackgroundColor(selectedColor)
-        } else {
-            manageTaskId = -1
+            manageColorButton.setBackgroundColor(manageColor)
+
         }
 
         // On Save Button Click
         manageSaveTaskButton.setOnClickListener {
+
             val task = TaskTable(
                 taskTitle = manageTaskTitle.text.toString(),
                 taskDescription = manageTaskDescription.text.toString(),
-                taskHexColor = selectedColor,
+                taskHexColor = manageColor,
                 taskCategory = manageTaskCategoryAutoComplete.text.toString(),
                 taskDueDateTime = manageLocalDateTime,
                 isComplete = manageIsCompleted
@@ -151,9 +150,11 @@ class ManageTaskActivity : AppCompatActivity() {
                 task.taskId = manageTaskId
                 taskViewModel.updateTask(task)
                 Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show()
+
             } else {
                 taskViewModel.insertTask(task)
                 Toast.makeText(this, "Task Created", Toast.LENGTH_LONG).show()
+
             }
 
             startActivity(Intent(applicationContext, MainActivity::class.java))

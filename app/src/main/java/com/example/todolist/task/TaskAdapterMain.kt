@@ -34,7 +34,7 @@ class TaskAdapterMain(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.listTaskTitle.text = allTaskTables[position].taskTitle
-        holder.listTaskSubtitle.text = allTaskTables[position].taskId.toString()
+        holder.listTaskSubtitle.text = allTaskTables[position].taskDueDateTime.toString()
         holder.listTaskHighlight.setBackgroundColor(allTaskTables[position].taskHexColor)
 
         holder.listTaskDeleteButton.setOnClickListener {
