@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.todolist.enums.Frequency
 import com.example.todolist.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,10 +35,6 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getTaskById(taskId: Int) = viewModelScope.launch(Dispatchers.IO) {
         taskRepository.getTaskById(taskId)
-    }
-
-    fun getTasksByFrequency(frequency: Frequency) = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.getTasksByFrequency(frequency)
     }
 
     fun getAllUniqueCategories() = viewModelScope.launch(Dispatchers.IO) {

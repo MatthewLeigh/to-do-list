@@ -1,7 +1,6 @@
 package com.example.todolist.task
 
 import androidx.lifecycle.LiveData
-import com.example.todolist.enums.Frequency
 
 class TaskRepository(private val taskDao: TaskDao) {
 
@@ -20,8 +19,6 @@ class TaskRepository(private val taskDao: TaskDao) {
     fun getAllTasks(): LiveData<List<TaskTable>> = taskDao.getAllTasks()
 
     fun getTaskById(taskId: Int): LiveData<TaskTable> = taskDao.getTaskById(taskId)
-
-    fun getTasksByFrequency(frequency: Frequency): LiveData<List<TaskTable>> = taskDao.getTasksByFrequency(frequency)
 
     fun getAllUniqueCategories(): LiveData<List<String>> = taskDao.getAllUniqueCategories()
 }

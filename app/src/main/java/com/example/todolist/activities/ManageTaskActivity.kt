@@ -20,6 +20,7 @@ import com.example.todolist.task.TaskRepository
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskViewModel
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class ManageTaskActivity : AppCompatActivity() {
 
@@ -155,9 +156,8 @@ class ManageTaskActivity : AppCompatActivity() {
                 manageTaskDescription.text.toString(),
                 "#FF0000",
                 "Fake",
-                Frequency.DAILY,
-                LocalDate.now(),
-                LocalDate.now().plusWeeks(1)
+                LocalDateTime.now().plusDays(1),
+                false
             )
 
             if (intentType.equals("Update")) {
