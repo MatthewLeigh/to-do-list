@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskDao
 
-@Database(entities = [TaskTable::class], version = 2, exportSchema = false)
+@Database(entities = [TaskTable::class], version = 3, exportSchema = false)
 @TypeConverters(AppDatabaseConverters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun getTasksDao(): TaskDao

@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 data class TaskTable(
     @ColumnInfo(name = "title") val taskTitle: String,
     @ColumnInfo(name = "description") val taskDescription: String?,
-    @ColumnInfo(name = "hexColor") val taskHexColor: String,
+    @ColumnInfo(name = "hexColor") val taskHexColor: Int,
     @ColumnInfo(name = "category") val taskCategory: String?,
     @ColumnInfo(name = "dueDateTime") val taskDueDateTime: LocalDateTime,
     @ColumnInfo(name = "isComplete") val isComplete: Boolean,

@@ -5,13 +5,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,38 +16,31 @@ import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskViewModel
 import yuku.ambilwarna.AmbilWarnaDialog
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 class ManageTaskActivity : AppCompatActivity() {
 
     // Declare View Model
-    lateinit var taskViewModel: TaskViewModel
+    private lateinit var taskViewModel: TaskViewModel
 
-    // Declare TextViews
-    lateinit var manageTaskActivityTitle : TextView
-    lateinit var manageDueDateLabel : TextView
-    lateinit var manageDueTimeLabel : TextView
-    lateinit var manageColorText : TextView
+    // Declare UI Elements
+    private lateinit var manageTaskTitle: EditText
+    private lateinit var manageTaskDescription: EditText
+    private lateinit var manageTaskCategoryAutoComplete: AutoCompleteTextView
+    private lateinit var manageDueDateLabel: TextView
+    private lateinit var manageDueTimeLabel: TextView
+    private lateinit var manageColorText: TextView
+    private lateinit var manageColorButton: Button
+    private lateinit var manageSaveTaskButton: Button
 
-    // Declare EditTexts
-    lateinit var manageTaskTitle : EditText
-    lateinit var manageTaskDescription : EditText
-
-    // Declare AutoCompleteTextViews
-    lateinit var manageTaskCategoryAutoComplete : AutoCompleteTextView
-
-    // Declare Buttons
-    lateinit var manageColorButton : Button
-    lateinit var manageSaveTaskButton : Button
-
-    // Task Id
-    var manageTaskId = -1
-
-    // Is Completed Boolean
-    var manageIsCompleted = false
+    // Task Properties
+    private var manageTaskId = -1
+    private var manageIsCompleted = false
+    private var manageLocalDateTime = LocalDateTime.now()
+    private var selectedColor = Color.BLACK // Default color
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_manage_task)
@@ -66,29 +53,17 @@ class ManageTaskActivity : AppCompatActivity() {
         // Initialize ViewModel
         taskViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[TaskViewModel::class.java]
 
-        // Initialize EditTexts for task details
+        // Initialize UI Elements
         manageTaskTitle = findViewById(R.id.manageTaskTitle)
         manageTaskDescription = findViewById(R.id.manageTaskDescription)
-
-        // Initialize TextViews
-        manageTaskActivityTitle = findViewById(R.id.manageTaskActivityTitle)
+        manageTaskCategoryAutoComplete = findViewById(R.id.manageTaskCategoryAutoComplete)
         manageDueDateLabel = findViewById(R.id.manageDueDateLabel)
         manageDueTimeLabel = findViewById(R.id.manageDueTimeLabel)
         manageColorText = findViewById(R.id.manageColorText)
-
-        // Initialize AutoCompleteTextViews
-        manageTaskCategoryAutoComplete = findViewById(R.id.manageTaskCategoryAutoComplete)
-
-        // Initialize Buttons for various actions
         manageColorButton = findViewById(R.id.manageColorButton)
         manageSaveTaskButton = findViewById(R.id.manageSaveTaskButton)
 
-
-
-
-
-
-        // Category Auto Complete Options
+        // Setup Category Dropdown
         val categoryList = mutableListOf<String>()
         val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, categoryList)
         manageTaskCategoryAutoComplete.setAdapter(categoryAdapter)
@@ -100,132 +75,89 @@ class ManageTaskActivity : AppCompatActivity() {
         }
 
         manageTaskCategoryAutoComplete.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                manageTaskCategoryAutoComplete.showDropDown()
-            }
+            if (hasFocus) manageTaskCategoryAutoComplete.showDropDown()
         }
-
 
         // Date Picker
         manageDueDateLabel.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val datePicker = DatePickerDialog(
-                this,
-                { _, year, month, dayOfMonth ->
-                    val selectedDate = "$dayOfMonth/${month + 1}/$year"
-                    manageDueDateLabel.text = selectedDate
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-            )
-            datePicker.show()
+            DatePickerDialog(this, { _, year, month, dayOfMonth ->
+                manageLocalDateTime = manageLocalDateTime.withYear(year).withMonth(month + 1).withDayOfMonth(dayOfMonth)
+                val formattedDate = manageLocalDateTime.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
+                manageDueDateLabel.text = formattedDate
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
-
 
         // Time Picker
         manageDueTimeLabel.setOnClickListener {
             val calendar = Calendar.getInstance()
-            val timePicker = TimePickerDialog(
-                this,
-                { _, hour, minute ->
-                    val formattedTime = String.format("%02d:%02d", hour, minute)
-                    manageDueTimeLabel.text = formattedTime
-                },
-                calendar.get(Calendar.HOUR_OF_DAY),
-                calendar.get(Calendar.MINUTE),
-                true
-            )
-            timePicker.show()
+            TimePickerDialog(this, { _, hour, minute ->
+                manageLocalDateTime = manageLocalDateTime.withHour(hour).withMinute(minute)
+                val formattedTime = manageLocalDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"))
+                manageDueTimeLabel.text = formattedTime
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show()
         }
-
-
-
 
         // Color Picker
         manageColorButton.setOnClickListener {
-            val colorPicker = AmbilWarnaDialog(this, Color.BLACK, object : AmbilWarnaDialog.OnAmbilWarnaListener {
+            AmbilWarnaDialog(this, selectedColor, object : AmbilWarnaDialog.OnAmbilWarnaListener {
                 override fun onOk(dialog: AmbilWarnaDialog?, color: Int) {
-                    manageColorButton.setBackgroundColor(color) // Change button color
+                    selectedColor = color
+                    manageColorButton.setBackgroundColor(color)
+                    manageColorText.text = String.format("#%06X", 0xFFFFFF and color) // Convert to hex
                 }
 
                 override fun onCancel(dialog: AmbilWarnaDialog?) {}
-            })
-            colorPicker.show()
+            }).show()
         }
-
-
 
         // Get Intent Type
         val intentType = intent.getStringExtra("intentType")
 
-        // If Update...
-        if (intentType.equals("Update")) {
+        if (intentType == "Update") {
+            val taskDateTimeString = intent.getStringExtra("taskDueDateTime")
+            val taskDateTime = taskDateTimeString?.let {
+                LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            }
 
-            val taskDateTime = intent.getStringExtra("taskDueDateTime")
-            val taskDate = taskDateTime?.substringBefore("T")
-            val taskTime = taskDateTime?.substringAfter("T")
+            selectedColor = intent.getIntExtra("taskHexColor", Color.BLACK)
 
-
-            manageTaskActivityTitle.text = "Update Task"
             manageTaskId = intent.getIntExtra("taskId", -1)
             manageTaskTitle.setText(intent.getStringExtra("taskTitle"))
             manageTaskDescription.setText(intent.getStringExtra("taskDescription"))
-            manageColorText.text = intent.getStringExtra("taskHexColor")
-            manageTaskCategoryAutoComplete.setText(intent.getStringExtra("taskCategory"))
-            manageDueDateLabel.text = taskDate
-            manageDueTimeLabel.text = taskTime
+            manageColorText.text = String.format("#%06X", 0xFFFFFF and selectedColor)
+            manageTaskCategoryAutoComplete.setText(intent.getStringExtra("taskCategory"), false)
+            manageDueDateLabel.text = taskDateTime?.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
+            manageDueTimeLabel.text = taskDateTime?.format(DateTimeFormatter.ofPattern("hh:mm a"))
             manageIsCompleted = intent.getBooleanExtra("taskIsCompleted", false)
+
+            manageColorButton.setBackgroundColor(selectedColor)
         } else {
-            manageTaskActivityTitle.text = "Create New Task"
+            manageTaskId = -1
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         // On Save Button Click
         manageSaveTaskButton.setOnClickListener {
-
-            val managedTaskTable = TaskTable(
-                manageTaskTitle.text.toString(),
-                manageTaskDescription.text.toString(),
-                manageColorText.text.toString(),
-                manageTaskCategoryAutoComplete.text.toString(),
-                LocalDateTime.now().plusDays(1),
-                manageIsCompleted
+            val task = TaskTable(
+                taskTitle = manageTaskTitle.text.toString(),
+                taskDescription = manageTaskDescription.text.toString(),
+                taskHexColor = selectedColor,
+                taskCategory = manageTaskCategoryAutoComplete.text.toString(),
+                taskDueDateTime = manageLocalDateTime,
+                isComplete = manageIsCompleted
             )
 
-            if (intentType.equals("Update")) {
-                managedTaskTable.taskId = manageTaskId
-                taskViewModel.updateTask(managedTaskTable)
+            if (intentType == "Update") {
+                task.taskId = manageTaskId
+                taskViewModel.updateTask(task)
+                Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show()
             } else {
-                taskViewModel.insertTask(managedTaskTable)
+                taskViewModel.insertTask(task)
+                Toast.makeText(this, "Task Created", Toast.LENGTH_LONG).show()
             }
 
-            Toast.makeText(
-                this,
-                "${manageTaskTitle.text} Task Updated",
-                Toast.LENGTH_LONG
-            ).show()
-
             startActivity(Intent(applicationContext, MainActivity::class.java))
-            this.finish()
+            finish()
         }
     }
 }
