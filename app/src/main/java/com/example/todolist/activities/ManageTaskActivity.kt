@@ -1,6 +1,7 @@
 package com.example.todolist.activities
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -112,6 +113,23 @@ class ManageTaskActivity : AppCompatActivity() {
                 calendar.get(Calendar.DAY_OF_MONTH)
             )
             datePicker.show()
+        }
+
+
+        // Time Picker
+        manageDueTimeLabel.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val timePicker = TimePickerDialog(
+                this,
+                { _, hour, minute ->
+                    val formattedTime = String.format("%02d:%02d", hour, minute)
+                    manageDueTimeLabel.text = formattedTime
+                },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
+            )
+            timePicker.show()
         }
 
 
