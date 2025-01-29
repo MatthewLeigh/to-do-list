@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 
@@ -18,9 +19,11 @@ class TaskAdapterMain(
     private val allTaskTables = ArrayList<TaskTable>()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         val listTaskTitle: TextView = itemView.findViewById(R.id.listTaskTitle)
         val listTaskSubtitle: TextView = itemView.findViewById(R.id.listTaskSubtitle)
         val listTaskDeleteButton: ImageView = itemView.findViewById(R.id.listTaskDeleteButton)
+        val listTaskHighlight: ConstraintLayout = itemView.findViewById(R.id.listTaskHighlight)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,6 +35,7 @@ class TaskAdapterMain(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.listTaskTitle.text = allTaskTables[position].taskTitle
         holder.listTaskSubtitle.text = allTaskTables[position].taskId.toString()
+        holder.listTaskHighlight.setBackgroundColor(allTaskTables[position].taskHexColor)
 
         holder.listTaskDeleteButton.setOnClickListener {
             taskClickDeleteInterface.onDeleteButtonClick(allTaskTables[position])
