@@ -13,7 +13,6 @@ import java.time.LocalDate
     indices = [Index(value = ["frequency"])]
 )
 data class Task(
-    @PrimaryKey(autoGenerate = true) var taskId: Int = 0,
     @ColumnInfo(name = "title") val taskTitle: String,
     @ColumnInfo(name = "description") val taskDescription: String?,
     @ColumnInfo(name = "hexColor") val taskHexColor: String,
@@ -21,4 +20,7 @@ data class Task(
     @ColumnInfo(name = "frequency") val taskFrequency: Frequency,
     @ColumnInfo(name = "startDate") val taskStartDate: LocalDate,
     @ColumnInfo(name = "endDate") val taskEndDate: LocalDate?
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var taskId = 0
+}
