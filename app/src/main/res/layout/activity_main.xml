@@ -11,6 +11,7 @@
         android:id="@+id/MainTaskListRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="4dp"
         tools:listitem="@layout/component_list_task_item"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

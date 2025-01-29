@@ -7,6 +7,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,9 @@ class ManageTaskActivity : AppCompatActivity() {
 
     // Declare View Model
     lateinit var taskViewModel: TaskViewModel
+
+    // Declare TextViews
+    lateinit var manageTaskActivityTitle : TextView
 
     // Declare EditTexts
     lateinit var manageTaskTitle : EditText
@@ -64,6 +68,9 @@ class ManageTaskActivity : AppCompatActivity() {
         manageTaskTitle = findViewById(R.id.manageTaskTitle)
         manageTaskDescription = findViewById(R.id.manageTaskDescription)
 
+        // Initialize TextViews
+        manageTaskActivityTitle = findViewById(R.id.manageTaskActivityTitle)
+
         // Initialize Spinners for categories and frequency
         manageTaskCategoryAutoComplete = findViewById(R.id.manageTaskCategoryAutoComplete)
         manageFrequencySpinner = findViewById(R.id.manageFrequencySpinner)
@@ -73,6 +80,11 @@ class ManageTaskActivity : AppCompatActivity() {
         manageEndDateButton = findViewById(R.id.manageEndDateButton)
         manageColorPickerButton = findViewById(R.id.manageColorPickerButton)
         manageSaveTaskButton = findViewById(R.id.manageSaveTaskButton)
+
+
+
+
+
 
         // Independent of Intent Type
 
@@ -107,10 +119,13 @@ class ManageTaskActivity : AppCompatActivity() {
         // If Update...
         if (intentType.equals("Update")) {
 
+            manageTaskActivityTitle.text = "Update Task"
             manageTaskId = intent.getIntExtra("taskId", -1)
             manageTaskTitle.setText(intent.getStringExtra("taskTitle"))
             manageTaskDescription.setText(intent.getStringExtra("taskDescription"))
             // TODO: Compelte lists
+        } else {
+            manageTaskActivityTitle.text = "Create New Task"
         }
 
 
