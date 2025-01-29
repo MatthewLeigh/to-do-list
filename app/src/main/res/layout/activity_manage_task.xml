@@ -112,7 +112,7 @@
                 android:drawableStart="@drawable/ic_event_selector"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:text="Feb 09, 2025"
+                android:hint="Select Date"
                 android:layout_weight="1" />
 
             <Space
@@ -129,7 +129,7 @@
                 android:drawableStart="@drawable/ic_schedule_selector"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:text="5:30pm"
+                android:hint="Select Time"
                 android:layout_weight="1"/>
 
         </LinearLayout>
