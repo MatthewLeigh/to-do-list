@@ -35,4 +35,7 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE isComplete == 0 ORDER BY dueDateTime ASC")
     fun getOutstandingTasks(): LiveData<List<TaskTable>>
 
+    @Query("SELECT * FROM tasks WHERE isComplete == 0 AND dueDateTime < (strftime('%s', 'now') * 1000) ORDER BY dueDateTime ASC")
+    fun getOverdueTasks(): LiveData<List<TaskTable>>
+
 }

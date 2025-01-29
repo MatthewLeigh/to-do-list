@@ -26,5 +26,9 @@ class TaskRepository(private val taskDao: TaskDao) {
 
     fun getOutstandingTasks(): LiveData<List<TaskTable>> = taskDao.getOutstandingTasks()
 
+    fun getOverdueTasks(): LiveData<List<TaskTable>> = taskDao.getOverdueTasks()
+
+
+
 
 }

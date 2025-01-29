@@ -49,5 +49,8 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         taskRepository.getOutstandingTasks()
     }
 
+    fun getOverdueTasks() = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.getOverdueTasks()
+    }
 
 }
