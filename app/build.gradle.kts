@@ -51,4 +51,5 @@ dependencies {
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation("com.github.yukuku:ambilwarna:2.0.1")
 }

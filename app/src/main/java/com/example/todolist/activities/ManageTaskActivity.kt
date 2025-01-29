@@ -3,6 +3,7 @@ package com.example.todolist.activities
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
@@ -19,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.R
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskViewModel
+import yuku.ambilwarna.AmbilWarnaDialog
 import java.time.LocalDateTime
 import java.util.Calendar
 
@@ -131,6 +133,22 @@ class ManageTaskActivity : AppCompatActivity() {
             )
             timePicker.show()
         }
+
+
+
+
+        // Color Picker
+        manageColorButton.setOnClickListener {
+            val colorPicker = AmbilWarnaDialog(this, Color.BLACK, object : AmbilWarnaDialog.OnAmbilWarnaListener {
+                override fun onOk(dialog: AmbilWarnaDialog?, color: Int) {
+                    manageColorButton.setBackgroundColor(color) // Change button color
+                }
+
+                override fun onCancel(dialog: AmbilWarnaDialog?) {}
+            })
+            colorPicker.show()
+        }
+
 
 
         // Get Intent Type
