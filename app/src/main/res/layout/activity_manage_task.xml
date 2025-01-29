@@ -74,61 +74,60 @@
             android:layout_height="wrap_content"
             android:hint="Select or Enter Category" />
 
-        <!-- Task Frequency -->
+        <!-- Task Due Date ? Time-->
         <TextView
-            android:id="@+id/manageFrequencyLabel"
+            android:id="@+id/manageDueDateTimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Frequency"
-            style="@style/LabelStyle"
-            android:layout_marginTop="8dp"/>
-
-        <Spinner
-            android:id="@+id/manageFrequencySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <!-- Task Start Date -->
-        <TextView
-            android:id="@+id/manageStartDateLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start Date"
+            android:text="Due Date / Time"
             style="@style/LabelStyle" />
 
-        <Button
-            android:id="@+id/manageStartDateButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select Start Date" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-        <!-- Task End Date -->
-        <TextView
-            android:id="@+id/manageEndDateLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End Date"
-            style="@style/LabelStyle" />
+            <TextView
+                android:id="@+id/manageDueDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feb 09, 2025"
+                android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/manageEndDateButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Select End Date" />
+            <TextView
+                android:id="@+id/manageDueTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5:30pm"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
         <!-- Task Color -->
         <TextView
             android:id="@+id/manageColorLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pick Task Color"
+            android:text="Color"
             style="@style/LabelStyle" />
 
-        <Button
-            android:id="@+id/manageColorPickerButton"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Choose Color" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/manageColorButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/manageColorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#F4BA07" />
+
+        </LinearLayout>
 
         <!-- Save Button -->
         <Button

@@ -1,12 +1,13 @@
 package com.example.todolist.activities
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
+import android.widget.DatePicker
 import android.widget.EditText
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,13 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.todolist.enums.Frequency
 import com.example.todolist.R
-import com.example.todolist.task.TaskRepository
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskViewModel
-import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.Calendar
 
 class ManageTaskActivity : AppCompatActivity() {
 
@@ -29,23 +28,18 @@ class ManageTaskActivity : AppCompatActivity() {
 
     // Declare TextViews
     lateinit var manageTaskActivityTitle : TextView
+    lateinit var manageDueDateLabel : TextView
+    lateinit var manageDueTimeLabel : TextView
 
     // Declare EditTexts
     lateinit var manageTaskTitle : EditText
     lateinit var manageTaskDescription : EditText
-    lateinit var manageTaskCategoryLabel : EditText
-    lateinit var manageFrequencyLabel : EditText
-
-    // Declare Spinners
-    lateinit var manageFrequencySpinner : Spinner
 
     // Declare AutoCompleteTextViews
     lateinit var manageTaskCategoryAutoComplete : AutoCompleteTextView
 
     // Declare Buttons
-    lateinit var manageStartDateButton : Button
-    lateinit var manageEndDateButton : Button
-    lateinit var manageColorPickerButton : Button
+    lateinit var manageColorButton : Button
     lateinit var manageSaveTaskButton : Button
 
     // Task Id
@@ -71,28 +65,19 @@ class ManageTaskActivity : AppCompatActivity() {
 
         // Initialize TextViews
         manageTaskActivityTitle = findViewById(R.id.manageTaskActivityTitle)
+        manageDueDateLabel = findViewById(R.id.manageDueDateLabel)
+        manageDueTimeLabel = findViewById(R.id.manageDueTimeLabel)
 
-        // Initialize Spinners for categories and frequency
+        // Initialize AutoCompleteTextViews
         manageTaskCategoryAutoComplete = findViewById(R.id.manageTaskCategoryAutoComplete)
-        manageFrequencySpinner = findViewById(R.id.manageFrequencySpinner)
 
         // Initialize Buttons for various actions
-        manageStartDateButton = findViewById(R.id.manageStartDateButton)
-        manageEndDateButton = findViewById(R.id.manageEndDateButton)
-        manageColorPickerButton = findViewById(R.id.manageColorPickerButton)
+        manageColorButton = findViewById(R.id.manageColorButton)
         manageSaveTaskButton = findViewById(R.id.manageSaveTaskButton)
 
 
 
 
-
-
-        // Independent of Intent Type
-
-        // Frequency Spinner Options
-        val frequencyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Frequency.entries.toTypedArray())
-        frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        manageFrequencySpinner.adapter = frequencyAdapter
 
 
         // Category Auto Complete Options
@@ -112,6 +97,22 @@ class ManageTaskActivity : AppCompatActivity() {
             }
         }
 
+
+        // Date Picker
+        manageDueDateLabel.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val datePicker = DatePickerDialog(
+                this,
+                { _, year, month, dayOfMonth ->
+                    val selectedDate = "$dayOfMonth/${month + 1}/$year"
+                    manageDueDateLabel.text = selectedDate
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            datePicker.show()
+        }
 
 
         // Get Intent Type
