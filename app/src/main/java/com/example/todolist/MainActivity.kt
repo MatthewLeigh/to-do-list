@@ -37,7 +37,8 @@ class MainActivity : AppCompatActivity(), TaskAdapterMain.TaskClickDeleteInterfa
         taskList.layoutManager = LinearLayoutManager(this)
 
         val taskAdapterMain = TaskAdapterMain(this, this, this)
-        taskViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[taskViewModel::class.java]
+        taskList.adapter = taskAdapterMain
+        taskViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[TaskViewModel::class.java]
         taskViewModel.allTasks.observe(this, { list->
             list?.let {
                 taskAdapterMain.updateList(it)
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity(), TaskAdapterMain.TaskClickDeleteInterfa
         })
 
         addButton.setOnClickListener {
-            val intent = Intent(this@MainActivity, CreateOrUpdateTaskActivity::class.java)
+            val intent = Intent(this@MainActivity, ManageTaskActivity::class.java)
             startActivity(intent)
             this.finish()
         }
@@ -62,10 +63,12 @@ class MainActivity : AppCompatActivity(), TaskAdapterMain.TaskClickDeleteInterfa
     }
 
     override fun onTaskItemClick(task: Task) {
-        val intent = Intent(this@MainActivity, CreateOrUpdateTaskActivity::class.java)
-        intent.putExtra("taskType", "Update")
+        val intent = Intent(this@MainActivity, ManageTaskActivity::class.java)
+        intent.putExtra("intentType", "Update")
+        intent.putExtra("taskId", task.taskId)
         intent.putExtra("taskTitle", task.taskTitle)
         intent.putExtra("taskDescription", task.taskDescription)
+        // TODO: Complete List
         startActivity(intent)
         this.finish()
     }
