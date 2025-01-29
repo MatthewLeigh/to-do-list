@@ -1,4 +1,4 @@
-package com.example.todolist
+package com.example.todolist.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.todolist.task.Task
+import com.example.todolist.enums.Frequency
+import com.example.todolist.R
+import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskViewModel
 import java.time.LocalDate
 
@@ -83,7 +85,7 @@ class ManageTaskActivity : AppCompatActivity() {
 
         manageSaveTaskButton.setOnClickListener {
 
-            val managedTask = Task(
+            val managedTaskTable = TaskTable(
                 manageTaskTitle.text.toString(),
                 manageTaskDescription.text.toString(),
                 "#FF0000",
@@ -95,10 +97,10 @@ class ManageTaskActivity : AppCompatActivity() {
 
 
             if (intentType.equals("Update")) {
-                managedTask.taskId = manageTaskId
-                taskViewModel.updateTask(managedTask)
+                managedTaskTable.taskId = manageTaskId
+                taskViewModel.updateTask(managedTaskTable)
             } else {
-                taskViewModel.insertTask(managedTask)
+                taskViewModel.insertTask(managedTaskTable)
             }
 
 

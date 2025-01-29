@@ -4,14 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.todolist.Frequency
-import com.example.todolist.AppDatabase
+import com.example.todolist.enums.Frequency
+import com.example.todolist.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
-    val allTasks: LiveData<List<Task>>
+    val allTasks: LiveData<List<TaskTable>>
     private val taskRepository: TaskRepository
 
     init {
@@ -20,16 +20,16 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         allTasks = taskRepository.getAllTasks()
     }
 
-    fun insertTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.insert(task)
+    fun insertTask(taskTable: TaskTable) = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.insert(taskTable)
     }
 
-    fun updateTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.update(task)
+    fun updateTask(taskTable: TaskTable) = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.update(taskTable)
     }
 
-    fun deleteTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.delete(task)
+    fun deleteTask(taskTable: TaskTable) = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.delete(taskTable)
     }
 
     fun getTaskById(taskId: Int) = viewModelScope.launch(Dispatchers.IO) {

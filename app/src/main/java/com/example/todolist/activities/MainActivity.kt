@@ -1,4 +1,4 @@
-package com.example.todolist
+package com.example.todolist.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.task.Task
+import com.example.todolist.R
+import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskAdapterMain
 import com.example.todolist.task.TaskViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -53,21 +54,21 @@ class MainActivity : AppCompatActivity(), TaskAdapterMain.TaskClickDeleteInterfa
 
     }
 
-    override fun onDeleteButtonClick(task: Task) {
-        taskViewModel.deleteTask(task)
+    override fun onDeleteButtonClick(taskTable: TaskTable) {
+        taskViewModel.deleteTask(taskTable)
         Toast.makeText(
             this,
-            "${task.taskTitle} Deleted",
+            "${taskTable.taskTitle} Deleted",
             Toast.LENGTH_LONG
         ).show()
     }
 
-    override fun onTaskItemClick(task: Task) {
+    override fun onTaskItemClick(taskTable: TaskTable) {
         val intent = Intent(this@MainActivity, ManageTaskActivity::class.java)
         intent.putExtra("intentType", "Update")
-        intent.putExtra("taskId", task.taskId)
-        intent.putExtra("taskTitle", task.taskTitle)
-        intent.putExtra("taskDescription", task.taskDescription)
+        intent.putExtra("taskId", taskTable.taskId)
+        intent.putExtra("taskTitle", taskTable.taskTitle)
+        intent.putExtra("taskDescription", taskTable.taskDescription)
         // TODO: Complete List
         startActivity(intent)
         this.finish()

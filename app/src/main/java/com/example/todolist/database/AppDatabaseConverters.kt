@@ -1,10 +1,11 @@
-package com.example.todolist
+package com.example.todolist.database
 
 import androidx.room.TypeConverter
+import com.example.todolist.enums.Frequency
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class Converters {
+class AppDatabaseConverters {
     private val formatter = DateTimeFormatter.ISO_LOCAL_DATE
 
     @TypeConverter

@@ -7,27 +7,27 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.todolist.Frequency
+import com.example.todolist.enums.Frequency
 
 @Dao
 interface TaskDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(task: Task)
+    suspend fun insert(taskTable: TaskTable)
 
     @Update
-    suspend fun update(task: Task)
+    suspend fun update(taskTable: TaskTable)
 
     @Delete
-    suspend fun delete(task: Task)
+    suspend fun delete(taskTable: TaskTable)
 
     @Query("SELECT * FROM tasks ORDER BY taskId ASC")
-    fun getAllTasks(): LiveData<List<Task>>
+    fun getAllTasks(): LiveData<List<TaskTable>>
 
     @Query("SELECT * FROM tasks WHERE taskId = :taskId LIMIT 1")
-    fun getTaskById(taskId: Int): LiveData<Task>
+    fun getTaskById(taskId: Int): LiveData<TaskTable>
 
     @Query("SELECT * FROM tasks WHERE frequency = :frequency ORDER BY taskId ASC")
-    fun getTasksByFrequency(frequency: Frequency): LiveData<List<Task>>
+    fun getTasksByFrequency(frequency: Frequency): LiveData<List<TaskTable>>
 
 }

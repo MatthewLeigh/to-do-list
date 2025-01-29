@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.todolist.AppDatabase
+import com.example.todolist.database.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,19 +17,19 @@ class TaskInstanceViewModel(application: Application) : AndroidViewModel(applica
         repository = TaskInstanceRepository(taskInstanceDao)
     }
 
-    fun insert(taskInstance: TaskInstance) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(taskInstance)
+    fun insert(taskInstanceTable: TaskInstanceTable) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insert(taskInstanceTable)
     }
 
-    fun update(taskInstance: TaskInstance) = viewModelScope.launch(Dispatchers.IO) {
-        repository.update(taskInstance)
+    fun update(taskInstanceTable: TaskInstanceTable) = viewModelScope.launch(Dispatchers.IO) {
+        repository.update(taskInstanceTable)
     }
 
-    fun delete(taskInstance: TaskInstance) = viewModelScope.launch(Dispatchers.IO) {
-        repository.delete(taskInstance)
+    fun delete(taskInstanceTable: TaskInstanceTable) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(taskInstanceTable)
     }
 
-    fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstance>> {
+    fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstanceTable>> {
         return repository.getInstancesForTask(taskId)
     }
 }

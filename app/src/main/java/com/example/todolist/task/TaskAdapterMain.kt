@@ -15,7 +15,7 @@ class TaskAdapterMain(
     val taskClickUpdateInterface: TaskClickUpdateInterface
 ) : RecyclerView.Adapter<TaskAdapterMain.ViewHolder>() {
 
-    private val allTasks = ArrayList<Task>()
+    private val allTaskTables = ArrayList<TaskTable>()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val listTaskTitle: TextView = itemView.findViewById(R.id.listTaskTitle)
@@ -30,34 +30,34 @@ class TaskAdapterMain(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.listTaskTitle.text = allTasks[position].taskTitle
-        holder.listTaskSubtitle.text = allTasks[position].taskId.toString()
+        holder.listTaskTitle.text = allTaskTables[position].taskTitle
+        holder.listTaskSubtitle.text = allTaskTables[position].taskId.toString()
 
         holder.listTaskDeleteButton.setOnClickListener {
-            taskClickDeleteInterface.onDeleteButtonClick(allTasks[position])
+            taskClickDeleteInterface.onDeleteButtonClick(allTaskTables[position])
         }
 
         holder.itemView.setOnClickListener {
-            taskClickUpdateInterface.onTaskItemClick(allTasks[position])
+            taskClickUpdateInterface.onTaskItemClick(allTaskTables[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return allTasks.size
+        return allTaskTables.size
     }
 
-    fun updateList(newList: List<Task>) {
-        allTasks.clear()
-        allTasks.addAll(newList)
+    fun updateList(newList: List<TaskTable>) {
+        allTaskTables.clear()
+        allTaskTables.addAll(newList)
         notifyDataSetChanged()
     }
 
     interface TaskClickDeleteInterface {
-        fun onDeleteButtonClick(task: Task)
+        fun onDeleteButtonClick(taskTable: TaskTable)
     }
 
     interface TaskClickUpdateInterface {
-        fun onTaskItemClick(task: Task)
+        fun onTaskItemClick(taskTable: TaskTable)
     }
     
 }

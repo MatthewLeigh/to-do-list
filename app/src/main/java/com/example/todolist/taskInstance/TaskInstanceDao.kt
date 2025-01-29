@@ -12,15 +12,15 @@ import androidx.room.Update
 interface TaskInstanceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(taskInstance: TaskInstance)
+    suspend fun insert(taskInstanceTable: TaskInstanceTable)
 
     @Update
-    suspend fun update(taskInstance: TaskInstance)
+    suspend fun update(taskInstanceTable: TaskInstanceTable)
 
     @Delete
-    suspend fun delete(taskInstance: TaskInstance)
+    suspend fun delete(taskInstanceTable: TaskInstanceTable)
 
     @Query("SELECT * FROM task_instances WHERE taskId = :taskId ORDER BY date ASC")
-    fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstance>>
+    fun getInstancesForTask(taskId: Int): LiveData<List<TaskInstanceTable>>
 
 }

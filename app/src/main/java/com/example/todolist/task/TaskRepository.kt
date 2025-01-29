@@ -1,26 +1,26 @@
 package com.example.todolist.task
 
 import androidx.lifecycle.LiveData
-import com.example.todolist.Frequency
+import com.example.todolist.enums.Frequency
 
 class TaskRepository(private val taskDao: TaskDao) {
 
-    suspend fun insert(task: Task) {
-        taskDao.insert(task)
+    suspend fun insert(taskTable: TaskTable) {
+        taskDao.insert(taskTable)
     }
 
-    suspend fun update(task: Task) {
-        taskDao.update(task)
+    suspend fun update(taskTable: TaskTable) {
+        taskDao.update(taskTable)
     }
 
-    suspend fun delete(task: Task) {
-        taskDao.delete(task)
+    suspend fun delete(taskTable: TaskTable) {
+        taskDao.delete(taskTable)
     }
 
-    fun getAllTasks(): LiveData<List<Task>> = taskDao.getAllTasks()
+    fun getAllTasks(): LiveData<List<TaskTable>> = taskDao.getAllTasks()
 
-    fun getTaskById(taskId: Int): LiveData<Task> = taskDao.getTaskById(taskId)
+    fun getTaskById(taskId: Int): LiveData<TaskTable> = taskDao.getTaskById(taskId)
 
-    fun getTasksByFrequency(frequency: Frequency): LiveData<List<Task>> = taskDao.getTasksByFrequency(frequency)
+    fun getTasksByFrequency(frequency: Frequency): LiveData<List<TaskTable>> = taskDao.getTasksByFrequency(frequency)
 
 }

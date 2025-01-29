@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.Companion.CASCADE
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.todolist.task.Task
+import com.example.todolist.task.TaskTable
 import java.time.LocalDate
 
 
@@ -14,14 +14,14 @@ import java.time.LocalDate
 @Entity(
     tableName = "task_instances",
     foreignKeys = [ForeignKey(
-        entity = Task::class,
+        entity = TaskTable::class,
         parentColumns = ["taskId"],
         childColumns = ["taskId"],
         onDelete = CASCADE
     )],
     indices = [Index(value = ["taskId"])]
 )
-data class TaskInstance(
+data class TaskInstanceTable(
     @PrimaryKey(autoGenerate = true) var instanceId: Int = 0,
     @ColumnInfo(name = "taskId") val taskId: Int,
     @ColumnInfo(name = "date") val instanceDate: LocalDate,

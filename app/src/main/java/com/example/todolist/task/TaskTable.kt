@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.todolist.Frequency
+import com.example.todolist.enums.Frequency
 import java.time.LocalDate
 
 // Task Table: Stores the meta data of each task.
@@ -12,7 +12,7 @@ import java.time.LocalDate
     tableName = "tasks",
     indices = [Index(value = ["frequency"])]
 )
-data class Task(
+data class TaskTable(
     @ColumnInfo(name = "title") val taskTitle: String,
     @ColumnInfo(name = "description") val taskDescription: String?,
     @ColumnInfo(name = "hexColor") val taskHexColor: String,
