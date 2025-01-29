@@ -23,4 +23,5 @@ class TaskRepository(private val taskDao: TaskDao) {
 
     fun getTasksByFrequency(frequency: Frequency): LiveData<List<TaskTable>> = taskDao.getTasksByFrequency(frequency)
 
+    fun getAllUniqueCategories(): LiveData<List<String>> = taskDao.getAllUniqueCategories()
 }

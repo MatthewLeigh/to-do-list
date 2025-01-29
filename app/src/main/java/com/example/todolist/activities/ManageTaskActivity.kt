@@ -2,6 +2,8 @@ package com.example.todolist.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
@@ -13,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.enums.Frequency
 import com.example.todolist.R
+import com.example.todolist.task.TaskRepository
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskViewModel
 import java.time.LocalDate
@@ -29,11 +32,12 @@ class ManageTaskActivity : AppCompatActivity() {
     lateinit var manageFrequencyLabel : EditText
 
     // Declare Spinners
-    lateinit var manageTaskCategorySpinner : Spinner
     lateinit var manageFrequencySpinner : Spinner
 
+    // Declare AutoCompleteTextViews
+    lateinit var manageTaskCategoryAutoComplete : AutoCompleteTextView
+
     // Declare Buttons
-    lateinit var manageCategoryButton : Button
     lateinit var manageStartDateButton : Button
     lateinit var manageEndDateButton : Button
     lateinit var manageColorPickerButton : Button
@@ -61,28 +65,74 @@ class ManageTaskActivity : AppCompatActivity() {
         manageTaskDescription = findViewById(R.id.manageTaskDescription)
 
         // Initialize Spinners for categories and frequency
-        manageTaskCategorySpinner = findViewById(R.id.manageTaskCategorySpinner)
+        manageTaskCategoryAutoComplete = findViewById(R.id.manageTaskCategoryAutoComplete)
         manageFrequencySpinner = findViewById(R.id.manageFrequencySpinner)
 
         // Initialize Buttons for various actions
-        manageCategoryButton = findViewById(R.id.manageCategoryButton)
         manageStartDateButton = findViewById(R.id.manageStartDateButton)
         manageEndDateButton = findViewById(R.id.manageEndDateButton)
         manageColorPickerButton = findViewById(R.id.manageColorPickerButton)
         manageSaveTaskButton = findViewById(R.id.manageSaveTaskButton)
 
+        // Independent of Intent Type
+
+        // Frequency Spinner Options
+        val frequencyAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, Frequency.entries.toTypedArray())
+        frequencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        manageFrequencySpinner.adapter = frequencyAdapter
+
+
+        // Category Auto Complete Options
+        val categoryList = mutableListOf<String>()
+        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, categoryList)
+        manageTaskCategoryAutoComplete.setAdapter(categoryAdapter)
+
+        taskViewModel.allCategories.observe(this) { categories ->
+            categoryList.clear()
+            categoryList.addAll(categories)
+            categoryAdapter.notifyDataSetChanged()
+        }
+
+        manageTaskCategoryAutoComplete.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                manageTaskCategoryAutoComplete.showDropDown()
+            }
+        }
+
+
+
         // Get Intent Type
         val intentType = intent.getStringExtra("intentType")
 
+        // If Update...
         if (intentType.equals("Update")) {
 
             manageTaskId = intent.getIntExtra("taskId", -1)
             manageTaskTitle.setText(intent.getStringExtra("taskTitle"))
             manageTaskDescription.setText(intent.getStringExtra("taskDescription"))
             // TODO: Compelte lists
-
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // On Save Button Click
         manageSaveTaskButton.setOnClickListener {
 
             val managedTaskTable = TaskTable(
@@ -95,14 +145,12 @@ class ManageTaskActivity : AppCompatActivity() {
                 LocalDate.now().plusWeeks(1)
             )
 
-
             if (intentType.equals("Update")) {
                 managedTaskTable.taskId = manageTaskId
                 taskViewModel.updateTask(managedTaskTable)
             } else {
                 taskViewModel.insertTask(managedTaskTable)
             }
-
 
             Toast.makeText(
                 this,
@@ -112,7 +160,6 @@ class ManageTaskActivity : AppCompatActivity() {
 
             startActivity(Intent(applicationContext, MainActivity::class.java))
             this.finish()
-
         }
     }
 }

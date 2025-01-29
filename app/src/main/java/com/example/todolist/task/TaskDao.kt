@@ -30,4 +30,7 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE frequency = :frequency ORDER BY taskId ASC")
     fun getTasksByFrequency(frequency: Frequency): LiveData<List<TaskTable>>
 
+    @Query("SELECT DISTINCT category FROM tasks ORDER BY category ASC")
+    fun getAllUniqueCategories(): LiveData<List<String>>
+
 }

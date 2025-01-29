@@ -39,20 +39,13 @@
             android:text="Category:"
             android:layout_below="@id/manageTaskDescription"/>
 
-        <Spinner
-            android:id="@+id/manageTaskCategorySpinner"
+        <AutoCompleteTextView
+            android:id="@+id/manageTaskCategoryAutoComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Select or Enter Category"
             android:layout_below="@id/manageTaskCategoryLabel"
             android:layout_marginBottom="10dp"/>
-
-        <Button
-            android:id="@+id/manageCategoryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="manage New Category"
-            android:layout_below="@id/manageTaskCategorySpinner"
-            android:layout_marginTop="10dp"/>
 
         <!-- Task Frequency -->
         <TextView
@@ -60,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Frequency:"
-            android:layout_below="@id/manageCategoryButton"/>
+            android:layout_below="@id/manageTaskCategoryAutoComplete"/>
 
         <Spinner
             android:id="@+id/manageFrequencySpinner"

@@ -12,12 +12,14 @@ import kotlinx.coroutines.launch
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     val allTasks: LiveData<List<TaskTable>>
+    val allCategories: LiveData<List<String>>
     private val taskRepository: TaskRepository
 
     init {
         val taskDao = AppDatabase.getDatabase(application).getTasksDao()
         taskRepository = TaskRepository(taskDao)
         allTasks = taskRepository.getAllTasks()
+        allCategories = taskRepository.getAllUniqueCategories()
     }
 
     fun insertTask(taskTable: TaskTable) = viewModelScope.launch(Dispatchers.IO) {
@@ -38,5 +40,9 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getTasksByFrequency(frequency: Frequency) = viewModelScope.launch(Dispatchers.IO) {
         taskRepository.getTasksByFrequency(frequency)
+    }
+
+    fun getAllUniqueCategories() = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.getAllUniqueCategories()
     }
 }
