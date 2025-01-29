@@ -13,7 +13,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun toStringToLocalDate(dateString: String?): LocalDate? {
+    fun toStringFromLocalDate(dateString: String?): LocalDate? {
         return dateString?.let { LocalDate.parse(it, formatter) }
     }
 
@@ -23,7 +23,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromStringToFrequency(value: String): Frequency {
+    fun toStringFromFrequency(value: String): Frequency {
         return Frequency.valueOf(value)
     }
 }
