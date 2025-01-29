@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/createTask"
-    tools:context=".CreateOrUpdateTaskActivity">
+    android:id="@+id/manageTask"
+    tools:context=".ManageTaskActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
 
         <!-- Task Title -->
         <EditText
-            android:id="@+id/createTaskTitle"
+            android:id="@+id/manageTaskTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Task Title"
@@ -21,109 +21,109 @@
 
         <!-- Task Description -->
         <EditText
-            android:id="@+id/createTaskDescription"
+            android:id="@+id/manageTaskDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Task Description"
             android:inputType="textMultiLine"
             android:gravity="start|top"
             android:minHeight="100dp"
-            android:layout_below="@id/createTaskTitle"
+            android:layout_below="@id/manageTaskTitle"
             android:layout_marginBottom="10dp"/>
 
         <!-- Task Category -->
         <TextView
-            android:id="@+id/categoryLabel"
+            android:id="@+id/manageTaskCategoryLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Category:"
-            android:layout_below="@id/createTaskDescription"/>
+            android:layout_below="@id/manageTaskDescription"/>
 
         <Spinner
-            android:id="@+id/categorySpinner"
+            android:id="@+id/manageTaskCategorySpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/categoryLabel"
+            android:layout_below="@id/manageTaskCategoryLabel"
             android:layout_marginBottom="10dp"/>
 
         <Button
-            android:id="@+id/createCategoryButton"
+            android:id="@+id/manageCategoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create New Category"
-            android:layout_below="@id/categorySpinner"
+            android:text="manage New Category"
+            android:layout_below="@id/manageTaskCategorySpinner"
             android:layout_marginTop="10dp"/>
 
         <!-- Task Frequency -->
         <TextView
-            android:id="@+id/frequencyLabel"
+            android:id="@+id/manageFrequencyLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Frequency:"
-            android:layout_below="@id/createCategoryButton"/>
+            android:layout_below="@id/manageCategoryButton"/>
 
         <Spinner
-            android:id="@+id/frequencySpinner"
+            android:id="@+id/manageFrequencySpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/frequencyLabel"
+            android:layout_below="@id/manageFrequencyLabel"
             android:layout_marginBottom="10dp"/>
 
         <!-- Task Start Date -->
         <TextView
-            android:id="@+id/startDateLabel"
+            android:id="@+id/manageStartDateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Start Date:"
-            android:layout_below="@id/frequencySpinner"/>
+            android:layout_below="@id/manageFrequencySpinner"/>
 
         <Button
-            android:id="@+id/startDateButton"
+            android:id="@+id/manageStartDateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select Start Date"
-            android:layout_below="@id/startDateLabel"
+            android:layout_below="@id/manageStartDateLabel"
             android:layout_marginBottom="10dp"/>
 
         <!-- Task End Date -->
         <TextView
-            android:id="@+id/endDateLabel"
+            android:id="@+id/manageEndDateLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="End Date:"
-            android:layout_below="@id/startDateButton"/>
+            android:layout_below="@id/manageStartDateButton"/>
 
         <Button
-            android:id="@+id/endDateButton"
+            android:id="@+id/manageEndDateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Select End Date"
-            android:layout_below="@id/endDateLabel"
+            android:layout_below="@id/manageEndDateLabel"
             android:layout_marginBottom="10dp"/>
 
         <!-- Task Color -->
         <TextView
-            android:id="@+id/colorLabel"
+            android:id="@+id/manageColorLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pick Task Color:"
-            android:layout_below="@id/endDateButton"/>
+            android:layout_below="@id/manageEndDateButton"/>
 
         <Button
-            android:id="@+id/colorPickerButton"
+            android:id="@+id/manageColorPickerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Choose Color"
-            android:layout_below="@id/colorLabel"
+            android:layout_below="@id/manageColorLabel"
             android:layout_marginBottom="10dp"/>
 
         <!-- Save Button -->
         <Button
-            android:id="@+id/saveTaskButton"
+            android:id="@+id/manageSaveTaskButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Save Task"
-            android:layout_below="@id/colorPickerButton"
+            android:layout_below="@id/manageColorPickerButton"
             android:layout_marginTop="20dp"/>
     </RelativeLayout>
 </ScrollView>
