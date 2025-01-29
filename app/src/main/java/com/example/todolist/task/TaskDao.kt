@@ -26,7 +26,13 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE taskId = :taskId LIMIT 1")
     fun getTaskById(taskId: Int): LiveData<TaskTable>
 
-    @Query("SELECT DISTINCT category FROM tasks ORDER BY category ASC")
+    @Query("SELECT DISTINCT category FROM tasks WHERE category != '' ORDER BY category ASC")
     fun getAllUniqueCategories(): LiveData<List<String>>
+
+    @Query("SELECT * FROM tasks WHERE isComplete == 1 ORDER BY dueDateTime ASC")
+    fun getCompletedTasks(): LiveData<List<TaskTable>>
+
+    @Query("SELECT * FROM tasks WHERE isComplete == 0 ORDER BY dueDateTime ASC")
+    fun getOutstandingTasks(): LiveData<List<TaskTable>>
 
 }

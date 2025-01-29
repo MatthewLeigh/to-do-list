@@ -13,7 +13,7 @@ data class TaskTable(
     @ColumnInfo(name = "description") val taskDescription: String?,
     @ColumnInfo(name = "hexColor") val taskHexColor: String,
     @ColumnInfo(name = "category") val taskCategory: String?,
-    @ColumnInfo(name = "dueDateTime") val taskStartDate: LocalDateTime,
+    @ColumnInfo(name = "dueDateTime") val taskDueDateTime: LocalDateTime,
     @ColumnInfo(name = "isComplete") val isComplete: Boolean,
 ) {
     @PrimaryKey(autoGenerate = true)

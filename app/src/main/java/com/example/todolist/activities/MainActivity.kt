@@ -69,7 +69,10 @@ class MainActivity : AppCompatActivity(), TaskAdapterMain.TaskClickDeleteInterfa
         intent.putExtra("taskId", taskTable.taskId)
         intent.putExtra("taskTitle", taskTable.taskTitle)
         intent.putExtra("taskDescription", taskTable.taskDescription)
-        // TODO: Complete List
+        intent.putExtra("taskHexColor", taskTable.taskHexColor)
+        intent.putExtra("taskCategory", taskTable.taskCategory)
+        intent.putExtra("taskDueDateTime", taskTable.taskDueDateTime)
+        intent.putExtra("taskIsCompleted", taskTable.isComplete)
         startActivity(intent)
         this.finish()
     }

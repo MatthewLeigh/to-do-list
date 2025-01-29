@@ -33,6 +33,7 @@ class ManageTaskActivity : AppCompatActivity() {
     lateinit var manageTaskActivityTitle : TextView
     lateinit var manageDueDateLabel : TextView
     lateinit var manageDueTimeLabel : TextView
+    lateinit var manageColorText : TextView
 
     // Declare EditTexts
     lateinit var manageTaskTitle : EditText
@@ -47,6 +48,9 @@ class ManageTaskActivity : AppCompatActivity() {
 
     // Task Id
     var manageTaskId = -1
+
+    // Is Completed Boolean
+    var manageIsCompleted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -70,6 +74,7 @@ class ManageTaskActivity : AppCompatActivity() {
         manageTaskActivityTitle = findViewById(R.id.manageTaskActivityTitle)
         manageDueDateLabel = findViewById(R.id.manageDueDateLabel)
         manageDueTimeLabel = findViewById(R.id.manageDueTimeLabel)
+        manageColorText = findViewById(R.id.manageColorText)
 
         // Initialize AutoCompleteTextViews
         manageTaskCategoryAutoComplete = findViewById(R.id.manageTaskCategoryAutoComplete)
@@ -157,11 +162,20 @@ class ManageTaskActivity : AppCompatActivity() {
         // If Update...
         if (intentType.equals("Update")) {
 
+            val taskDateTime = intent.getStringExtra("taskDueDateTime")
+            val taskDate = taskDateTime?.substringBefore("T")
+            val taskTime = taskDateTime?.substringAfter("T")
+
+
             manageTaskActivityTitle.text = "Update Task"
             manageTaskId = intent.getIntExtra("taskId", -1)
             manageTaskTitle.setText(intent.getStringExtra("taskTitle"))
             manageTaskDescription.setText(intent.getStringExtra("taskDescription"))
-            // TODO: Compelte lists
+            manageColorText.text = intent.getStringExtra("taskHexColor")
+            manageTaskCategoryAutoComplete.setText(intent.getStringExtra("taskCategory"))
+            manageDueDateLabel.text = taskDate
+            manageDueTimeLabel.text = taskTime
+            manageIsCompleted = intent.getBooleanExtra("taskIsCompleted", false)
         } else {
             manageTaskActivityTitle.text = "Create New Task"
         }
@@ -191,10 +205,10 @@ class ManageTaskActivity : AppCompatActivity() {
             val managedTaskTable = TaskTable(
                 manageTaskTitle.text.toString(),
                 manageTaskDescription.text.toString(),
-                "#FF0000",
-                "Fake",
+                manageColorText.text.toString(),
+                manageTaskCategoryAutoComplete.text.toString(),
                 LocalDateTime.now().plusDays(1),
-                false
+                manageIsCompleted
             )
 
             if (intentType.equals("Update")) {

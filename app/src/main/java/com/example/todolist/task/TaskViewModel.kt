@@ -40,4 +40,14 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun getAllUniqueCategories() = viewModelScope.launch(Dispatchers.IO) {
         taskRepository.getAllUniqueCategories()
     }
+
+    fun getCompletedTasks() = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.getCompletedTasks()
+    }
+
+    fun getOutstandingTasks() = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.getOutstandingTasks()
+    }
+
+
 }

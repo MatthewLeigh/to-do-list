@@ -21,4 +21,10 @@ class TaskRepository(private val taskDao: TaskDao) {
     fun getTaskById(taskId: Int): LiveData<TaskTable> = taskDao.getTaskById(taskId)
 
     fun getAllUniqueCategories(): LiveData<List<String>> = taskDao.getAllUniqueCategories()
+
+    fun getCompletedTasks(): LiveData<List<TaskTable>> = taskDao.getCompletedTasks()
+
+    fun getOutstandingTasks(): LiveData<List<TaskTable>> = taskDao.getOutstandingTasks()
+
+
 }
