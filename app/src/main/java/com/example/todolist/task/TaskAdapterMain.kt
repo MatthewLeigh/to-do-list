@@ -41,7 +41,7 @@ class TaskAdapterMain(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = allTaskTables[position]
 
-        val title = "${task.taskTitle} - ${task.isComplete}"
+        val title = task.taskTitle
         val subtitle = if (task.taskCategory?.isNotEmpty() == true) {
             "${task.taskCategory} | ${task.taskDescription}"
         } else {
