@@ -20,7 +20,7 @@ interface TaskDao {
     @Delete
     suspend fun delete(taskTable: TaskTable)
 
-    @Query("SELECT * FROM tasks ORDER BY taskId ASC")
+    @Query("SELECT * FROM tasks ORDER BY dueDateTime ASC")
     fun getAllTasks(): LiveData<List<TaskTable>>
 
     @Query("SELECT * FROM tasks WHERE taskId = :taskId LIMIT 1")
