@@ -16,7 +16,12 @@ import com.example.todolist.task.TaskAdapterMain
 import com.example.todolist.task.TaskViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class MainActivity : AppCompatActivity(), TaskAdapterMain.TaskClickDeleteInterface, TaskAdapterMain.TaskClickUpdateInterface {
+class MainActivity :
+    AppCompatActivity(),
+    TaskAdapterMain.TaskClickDeleteInterface,
+    TaskAdapterMain.TaskClickManageInterface,
+    TaskAdapterMain.TaskClickToggleIsCheckedInterface
+{
 
     lateinit var taskList : RecyclerView
     lateinit var addButton : FloatingActionButton
@@ -37,7 +42,7 @@ class MainActivity : AppCompatActivity(), TaskAdapterMain.TaskClickDeleteInterfa
         addButton = findViewById(R.id.MainAddButton)
         taskList.layoutManager = LinearLayoutManager(this)
 
-        val taskAdapterMain = TaskAdapterMain(this, this, this)
+        val taskAdapterMain = TaskAdapterMain(this, this, this, this)
         taskList.adapter = taskAdapterMain
         taskViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[TaskViewModel::class.java]
         taskViewModel.allTasks.observe(this, { list->
@@ -75,5 +80,24 @@ class MainActivity : AppCompatActivity(), TaskAdapterMain.TaskClickDeleteInterfa
         intent.putExtra("taskIsCompleted", taskTable.isComplete)
         startActivity(intent)
         this.finish()
+    }
+
+    override fun onTaskCheckBoxToggled(taskTable: TaskTable) {
+
+        val newState = !taskTable.isComplete
+
+        if (newState != taskTable.isComplete) {
+            taskTable.isComplete = newState
+            taskTable.isComplete = !taskTable.isComplete
+            taskViewModel.updateTask(taskTable)
+
+            val status = if (taskTable.isComplete) "completed" else "incomplete"
+            Toast.makeText(
+                this,
+                "${taskTable.taskTitle} marked as $status",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
     }
 }
