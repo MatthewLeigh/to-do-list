@@ -14,16 +14,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.BottomSheetDialog
 import com.example.todolist.R
 import com.example.todolist.task.TaskTable
-import com.example.todolist.task.TaskAdapterMain
+import com.example.todolist.task.TaskAdapter
 import com.example.todolist.task.TaskViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity :
     AppCompatActivity(),
-    TaskAdapterMain.TaskClickDeleteInterface,
-    TaskAdapterMain.TaskClickManageInterface,
-    TaskAdapterMain.TaskClickToggleIsCheckedInterface
+    TaskAdapter.TaskClickDeleteInterface,
+    TaskAdapter.TaskClickManageInterface,
+    TaskAdapter.TaskClickToggleIsCheckedInterface
 {
 
     lateinit var taskList : RecyclerView
@@ -49,7 +49,7 @@ class MainActivity :
         taskList.layoutManager = LinearLayoutManager(this)
         mainBottomNav = findViewById(R.id.MainBottomNav)
 
-        val taskAdapterMain = TaskAdapterMain(this, this, this)
+        val taskAdapterMain = TaskAdapter(this, this, this)
         taskList.adapter = taskAdapterMain
         taskViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[TaskViewModel::class.java]
 
@@ -123,7 +123,7 @@ class MainActivity :
 }
 
 
-private fun applyFilter(list: List<TaskTable>, filter: String, taskAdapterMain: TaskAdapterMain) {
+private fun applyFilter(list: List<TaskTable>, filter: String, taskAdapterMain: TaskAdapter) {
     val filteredList = when (filter) {
         "none" -> list
         "isComplete" -> list.filter { task -> task.isComplete }

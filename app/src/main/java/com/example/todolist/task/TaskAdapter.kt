@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import java.time.format.DateTimeFormatter
 
-class TaskAdapterMain(
+class TaskAdapter(
     val context: Context,
     val taskClickManageInterface: TaskClickManageInterface,
     val taskClickToggleIsCheckedInterface: TaskClickToggleIsCheckedInterface
-) : RecyclerView.Adapter<TaskAdapterMain.ViewHolder>() {
+) : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     private val allTaskTables = ArrayList<TaskTable>()
 
