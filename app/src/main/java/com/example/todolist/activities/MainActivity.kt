@@ -3,6 +3,7 @@ package com.example.todolist.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +19,7 @@ import com.example.todolist.task.TaskAdapter
 import com.example.todolist.task.TaskViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity :
     AppCompatActivity(),
@@ -95,11 +97,9 @@ class MainActivity :
 
     override fun onDeleteButtonClick(taskTable: TaskTable) {
         taskViewModel.deleteTask(taskTable)
-        Toast.makeText(
-            this,
-            "${taskTable.taskTitle} Deleted",
-            Toast.LENGTH_LONG
-        ).show()
+        Snackbar.make(findViewById(android.R.id.content), "Task Deleted", Snackbar.LENGTH_LONG)
+            .setAnchorView(mainBottomNav)
+            .show()
     }
 
     override fun onTaskItemClick(taskTable: TaskTable) {
@@ -113,12 +113,9 @@ class MainActivity :
         taskViewModel.updateTaskCompletionStatus(taskTable.taskId, isCompleteNew)
 
         val status = if (taskTable.isComplete) "completed" else "incomplete"
-        Toast.makeText(
-            this,
-            "${taskTable.taskTitle} marked as $status",
-            Toast.LENGTH_SHORT
-        ).show()
-
+        Snackbar.make(findViewById(android.R.id.content), "Task marked as $status", Snackbar.LENGTH_LONG)
+            .setAnchorView(mainBottomNav)
+            .show()
     }
 }
 
