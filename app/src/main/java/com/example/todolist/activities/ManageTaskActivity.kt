@@ -25,6 +25,7 @@ class ManageTaskActivity : AppCompatActivity() {
     private lateinit var taskViewModel: TaskViewModel
 
     // Declare UI Elements
+    private lateinit var manageTaskActivityTitle: TextView
     private lateinit var manageTaskTitle: EditText
     private lateinit var manageTaskDescription: EditText
     private lateinit var manageTaskCategoryAutoComplete: AutoCompleteTextView
@@ -54,6 +55,7 @@ class ManageTaskActivity : AppCompatActivity() {
         taskViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[TaskViewModel::class.java]
 
         // Initialize UI Elements
+        manageTaskActivityTitle = findViewById(R.id.manageTaskActivityTitle)
         manageTaskTitle = findViewById(R.id.manageTaskTitle)
         manageTaskDescription = findViewById(R.id.manageTaskDescription)
         manageTaskCategoryAutoComplete = findViewById(R.id.manageTaskCategoryAutoComplete)
@@ -121,6 +123,7 @@ class ManageTaskActivity : AppCompatActivity() {
 
             manageColor = intent.getIntExtra("taskHexColor", Color.BLACK)
 
+            manageTaskActivityTitle.text = "Update Task"
             manageTaskId = intent.getIntExtra("taskId", -1)
             manageTaskTitle.setText(intent.getStringExtra("taskTitle"))
             manageTaskDescription.setText(intent.getStringExtra("taskDescription"))
@@ -132,6 +135,8 @@ class ManageTaskActivity : AppCompatActivity() {
 
             manageColorButton.setBackgroundColor(manageColor)
 
+        } else {
+            manageTaskActivityTitle.text = "Create New Task"
         }
 
         // On Save Button Click
