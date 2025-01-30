@@ -137,7 +137,7 @@ private fun applyFilter(list: List<TaskTable>, filter: String, taskAdapterMain: 
         "isComplete" -> list.filter { task -> task.isComplete }
         "outstanding" -> list.filter { task -> !task.isComplete }
         "overdue" -> list.filter { task ->
-            task.taskDueDateTime.isBefore(java.time.Instant.ofEpochMilli(System.currentTimeMillis()).atZone(java.time.ZoneId.systemDefault()).toLocalDateTime()) && !task.isComplete
+            task.taskDueDateTime.isBefore(java.time.Instant.ofEpochSecond(System.currentTimeMillis() / 1000).atZone(java.time.ZoneId.systemDefault()).toLocalDateTime()) && !task.isComplete
         }
         else -> list
     }
