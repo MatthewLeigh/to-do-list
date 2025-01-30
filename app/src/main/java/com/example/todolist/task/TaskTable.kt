@@ -14,7 +14,7 @@ data class TaskTable(
     @ColumnInfo(name = "hexColor") val taskHexColor: Int,
     @ColumnInfo(name = "category") val taskCategory: String?,
     @ColumnInfo(name = "dueDateTime") val taskDueDateTime: LocalDateTime,
-    @ColumnInfo(name = "isComplete") val isComplete: Boolean,
+    @ColumnInfo(name = "isComplete") var isComplete: Boolean,
 ) {
     @PrimaryKey(autoGenerate = true)
     var taskId = 0

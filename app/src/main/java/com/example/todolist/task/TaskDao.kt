@@ -38,4 +38,7 @@ interface TaskDao {
     @Query("SELECT * FROM tasks WHERE isComplete == 0 AND dueDateTime < (strftime('%s', 'now') * 1000) ORDER BY dueDateTime ASC")
     fun getOverdueTasks(): LiveData<List<TaskTable>>
 
+    @Query("UPDATE tasks SET isComplete = :isComplete WHERE taskId = :taskId")
+    suspend fun updateTaskCompletionStatus(taskId: Int, isComplete: Boolean)
+
 }

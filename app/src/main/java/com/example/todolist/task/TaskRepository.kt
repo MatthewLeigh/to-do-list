@@ -28,7 +28,8 @@ class TaskRepository(private val taskDao: TaskDao) {
 
     fun getOverdueTasks(): LiveData<List<TaskTable>> = taskDao.getOverdueTasks()
 
-
-
+    suspend fun updateTaskCompletionStatus(taskId: Int, isComplete: Boolean) {
+        taskDao.updateTaskCompletionStatus(taskId, isComplete)
+    }
 
 }
