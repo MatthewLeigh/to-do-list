@@ -63,6 +63,16 @@ class TaskAdapter(
             holder.listTaskFooter.paintFlags = holder.listTaskFooter.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
 
+        // Set footer to overdue color if overdue.
+        if (
+            task.taskDueDateTime.isBefore(java.time.Instant.ofEpochSecond(System.currentTimeMillis() / 1000).atZone(java.time.ZoneId.systemDefault()).toLocalDateTime())
+            && !task.isComplete
+        ) {
+            holder.listTaskFooter.setTextColor(context.resources.getColor(R.color.overdue, null))
+        } else {
+            holder.listTaskFooter.setTextColor(context.resources.getColor(R.color.text, null))
+        }
+
         // Set the background color for the task
         holder.listTaskHighlight.setBackgroundColor(task.taskHexColor)
 
