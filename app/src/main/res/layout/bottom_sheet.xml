@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    android:paddingVertical="32dp"
+    android:paddingHorizontal="16dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/sheetTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Title"
+            android:layout_gravity="center"
+            style="@style/TitleStyle" />
+
+        <TextView
+            android:id="@+id/sheetCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins"
+            android:textSize="12sp"
+            android:layout_marginTop="-16dp"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="4dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/sheetDeleteText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:paddingVertical="16dp"/>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="16dp"/>
+
+            <TextView
+                android:id="@+id/sheetUpdateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                android:paddingVertical="16dp" />
+
+        </LinearLayout>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginVertical="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Due: " />
+
+            <TextView
+                android:id="@+id/sheetDueDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jan 30, 2025" />
+
+            <TextView
+                android:id="@+id/sheetDueTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" | 5:15pm"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/sheetDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is a description."
+            android:layout_marginBottom="16dp" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todolist.BottomSheetDialog
 import com.example.todolist.R
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskAdapterMain
@@ -48,7 +49,7 @@ class MainActivity :
         taskList.layoutManager = LinearLayoutManager(this)
         mainBottomNav = findViewById(R.id.MainBottomNav)
 
-        val taskAdapterMain = TaskAdapterMain(this, this, this, this)
+        val taskAdapterMain = TaskAdapterMain(this, this, this)
         taskList.adapter = taskAdapterMain
         taskViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[TaskViewModel::class.java]
 
@@ -102,17 +103,8 @@ class MainActivity :
     }
 
     override fun onTaskItemClick(taskTable: TaskTable) {
-        val intent = Intent(this@MainActivity, ManageTaskActivity::class.java)
-        intent.putExtra("intentType", "Update")
-        intent.putExtra("taskId", taskTable.taskId)
-        intent.putExtra("taskTitle", taskTable.taskTitle)
-        intent.putExtra("taskDescription", taskTable.taskDescription)
-        intent.putExtra("taskHexColor", taskTable.taskHexColor)
-        intent.putExtra("taskCategory", taskTable.taskCategory)
-        intent.putExtra("taskDueDateTime", taskTable.taskDueDateTime.toString())
-        intent.putExtra("taskIsCompleted", taskTable.isComplete)
-        startActivity(intent)
-        this.finish()
+        val bottomSheetDialog = BottomSheetDialog.newInstance(taskTable)
+        bottomSheetDialog.show(supportFragmentManager, "TaskBottomSheet")
     }
 
     override fun onTaskCheckBoxToggled(taskTable: TaskTable) {

@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter
 
 class TaskAdapterMain(
     val context: Context,
-    val taskClickDeleteInterface: TaskClickDeleteInterface,
     val taskClickManageInterface: TaskClickManageInterface,
     val taskClickToggleIsCheckedInterface: TaskClickToggleIsCheckedInterface
 ) : RecyclerView.Adapter<TaskAdapterMain.ViewHolder>() {
@@ -27,7 +26,6 @@ class TaskAdapterMain(
         val listTaskTitle: TextView = itemView.findViewById(R.id.listTaskTitle)
         val listTaskSubtitle: TextView = itemView.findViewById(R.id.listTaskSubtitle)
         val listTaskFooter: TextView = itemView.findViewById(R.id.listTaskFooter)
-        val listTaskDeleteButton: ImageView = itemView.findViewById(R.id.listTaskDeleteButton)
         val listTaskHighlight: ConstraintLayout = itemView.findViewById(R.id.listTaskHighlight)
         val listTaskCheckBox: CheckBox = itemView.findViewById(R.id.listTaskCheckBox)
     }
@@ -75,11 +73,6 @@ class TaskAdapterMain(
         // Update the task completion status when the checkbox is toggled
         holder.listTaskCheckBox.setOnClickListener {
             taskClickToggleIsCheckedInterface.onTaskCheckBoxToggled(task)
-        }
-
-        // Delete task when delete button is clicked
-        holder.listTaskDeleteButton.setOnClickListener {
-            taskClickDeleteInterface.onDeleteButtonClick(task)
         }
 
         // Open task for update when clicked

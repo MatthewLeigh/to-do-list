@@ -38,7 +38,6 @@
                     android:text="Title"
                     android:textSize="18sp"
                     android:fontFamily="@font/poppins_semi_bold"
-                    app:layout_constraintEnd_toStartOf="@id/listTaskDeleteButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +52,6 @@
                     android:ellipsize="end"
                     android:textSize="12sp"
                     android:fontFamily="@font/poppins"
-                    app:layout_constraintEnd_toStartOf="@id/listTaskDeleteButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/listTaskTitle" />
 
@@ -61,7 +59,6 @@
                     android:id="@+id/listTaskCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@+id/listTaskDeleteButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/listTaskSubtitle"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -84,20 +81,8 @@
                     android:text="Today | Health"
                     android:textSize="12sp"
                     android:fontFamily="@font/poppins"
-                    app:layout_constraintEnd_toStartOf="@id/listTaskDeleteButton"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/divider" />
-
-
-                <ImageView
-                    android:id="@+id/listTaskDeleteButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="Delete"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_delete"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

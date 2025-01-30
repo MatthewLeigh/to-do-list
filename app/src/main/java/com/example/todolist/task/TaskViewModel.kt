@@ -56,4 +56,9 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun updateTaskCompletionStatus(taskId: Int, isComplete: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         taskRepository.updateTaskCompletionStatus(taskId, isComplete)
     }
+
+    fun deleteById(taskId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.deleteById(taskId)
+    }
+
 }
