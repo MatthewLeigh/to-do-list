@@ -84,16 +84,9 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
 
     private fun updateTask() {
         val intent = Intent(requireContext(), ManageTaskActivity::class.java).apply {
-            putExtra("taskId", taskId)
-            putExtra("taskTitle", taskTitle)
-            putExtra("taskDescription", arguments?.getString("taskDescription"))
-            putExtra("taskHexColor", arguments?.getInt("taskHexColor"))
-            putExtra("taskCategory", arguments?.getString("taskCategory"))
-            putExtra("taskDueDateTime", arguments?.getString("taskDueDateTime"))
-            putExtra("taskIsCompleted", arguments?.getBoolean("taskIsCompleted"))
+            putExtras(arguments ?: Bundle())
         }
         dismiss()
         startActivity(intent)
-
     }
 }
