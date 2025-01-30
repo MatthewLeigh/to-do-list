@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_all_tasks"
-        android:icon="@drawable/ic_add"
+        android:icon="@drawable/ic_home"
         android:title="All Tasks" />
 
     <item
         android:id="@+id/nav_completed_tasks"
-        android:icon="@drawable/ic_schedule"
-        android:title="Completed Tasks" />
+        android:icon="@drawable/ic_complete"
+        android:title="Completed" />
 
     <item
         android:id="@+id/nav_outsanding_tasks"
-        android:icon="@drawable/ic_schedule"
-        android:title="Outstanding Tasks" />
+        android:icon="@drawable/ic_task"
+        android:title="Outstanding" />
 
     <item
         android:id="@+id/nav_overdue_tasks"
-        android:icon="@drawable/ic_schedule"
-        android:title="Overdue Tasks" />
+        android:icon="@drawable/ic_overdue"
+        android:title="Overdue" />
 
 </menu>
