@@ -41,14 +41,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/sheetDeleteText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Delete"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:paddingVertical="16dp"/>
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_circle_cross"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Delete"
+                    android:textAlignment="center"
+                    android:paddingVertical="16dp"/>
+            </LinearLayout>
 
             <!-- Spacer -->
             <View
@@ -58,14 +71,27 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginVertical="16dp"/>
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/sheetUpdateText"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Update"
-                android:textAlignment="center"
-                android:layout_weight="1"
-                android:paddingVertical="16dp" />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_circle_change"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update"
+                    android:textAlignment="center"
+                    android:paddingVertical="16dp" />
+            </LinearLayout>
 
         </LinearLayout>
 

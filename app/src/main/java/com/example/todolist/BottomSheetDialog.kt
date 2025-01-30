@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -55,8 +56,8 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
         val sheetCategory: TextView = view.findViewById(R.id.sheetCategory)
         val sheetDueDate: TextView = view.findViewById(R.id.sheetDueDate)
         val sheetDescription: TextView = view.findViewById(R.id.sheetDescription)
-        val sheetDeleteText: TextView = view.findViewById(R.id.sheetDeleteText)
-        val sheetUpdateText: TextView = view.findViewById(R.id.sheetUpdateText)
+        val sheetDeleteText: LinearLayout = view.findViewById(R.id.sheetDeleteText)
+        val sheetUpdateText: LinearLayout = view.findViewById(R.id.sheetUpdateText)
 
         sheetTitle.text = taskTitle
         sheetCategory.text = taskCategory
