@@ -53,4 +53,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         taskRepository.getOverdueTasks()
     }
 
+    fun updateTaskCompletionStatus(taskId: Int, isComplete: Boolean) = viewModelScope.launch(Dispatchers.IO) {
+        taskRepository.updateTaskCompletionStatus(taskId, isComplete)
+    }
 }

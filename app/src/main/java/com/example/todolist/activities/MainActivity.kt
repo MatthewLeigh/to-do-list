@@ -2,6 +2,7 @@ package com.example.todolist.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import com.example.todolist.R
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskAdapterMain
 import com.example.todolist.task.TaskViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity :
@@ -26,6 +28,9 @@ class MainActivity :
     lateinit var taskList : RecyclerView
     lateinit var addButton : FloatingActionButton
     lateinit var taskViewModel : TaskViewModel
+    lateinit var mainBottomNav : BottomNavigationView
+
+    private var currentFilter: String = "none"
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -41,13 +46,15 @@ class MainActivity :
         taskList = findViewById(R.id.MainTaskListRV)
         addButton = findViewById(R.id.MainAddButton)
         taskList.layoutManager = LinearLayoutManager(this)
+        mainBottomNav = findViewById(R.id.MainBottomNav)
 
         val taskAdapterMain = TaskAdapterMain(this, this, this, this)
         taskList.adapter = taskAdapterMain
         taskViewModel = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application))[TaskViewModel::class.java]
-        taskViewModel.allTasks.observe(this, { list->
+
+        taskViewModel.allTasks.observe(this, { list ->
             list?.let {
-                taskAdapterMain.updateList(it)
+                applyFilter(it, currentFilter, taskAdapterMain)
             }
         })
 
@@ -55,6 +62,32 @@ class MainActivity :
             val intent = Intent(this@MainActivity, ManageTaskActivity::class.java)
             startActivity(intent)
             this.finish()
+        }
+
+        mainBottomNav.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_all_tasks -> {
+                    currentFilter = "none"
+                    applyFilter(taskViewModel.allTasks.value ?: emptyList(), currentFilter, taskAdapterMain)
+                    true
+                }
+                R.id.nav_completed_tasks -> {
+                    currentFilter = "isComplete"
+                    applyFilter(taskViewModel.allTasks.value ?: emptyList(), currentFilter, taskAdapterMain)
+                    true
+                }
+                R.id.nav_outsanding_tasks -> {
+                    currentFilter = "outstanding"
+                    applyFilter(taskViewModel.allTasks.value ?: emptyList(), currentFilter, taskAdapterMain)
+                    true
+                }
+                R.id.nav_overdue_tasks -> {
+                    currentFilter = "overdue"
+                    applyFilter(taskViewModel.allTasks.value ?: emptyList(), currentFilter, taskAdapterMain)
+                    true
+                }
+                else -> false
+            }
         }
 
     }
@@ -84,20 +117,30 @@ class MainActivity :
 
     override fun onTaskCheckBoxToggled(taskTable: TaskTable) {
 
-        val newState = !taskTable.isComplete
+        val isCompleteNew = !taskTable.isComplete
+        taskViewModel.updateTaskCompletionStatus(taskTable.taskId, isCompleteNew)
 
-        if (newState != taskTable.isComplete) {
-            taskTable.isComplete = newState
-            taskTable.isComplete = !taskTable.isComplete
-            taskViewModel.updateTask(taskTable)
-
-            val status = if (taskTable.isComplete) "completed" else "incomplete"
-            Toast.makeText(
-                this,
-                "${taskTable.taskTitle} marked as $status",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
+        val status = if (taskTable.isComplete) "completed" else "incomplete"
+        Toast.makeText(
+            this,
+            "${taskTable.taskTitle} marked as $status",
+            Toast.LENGTH_SHORT
+        ).show()
 
     }
+}
+
+
+private fun applyFilter(list: List<TaskTable>, filter: String, taskAdapterMain: TaskAdapterMain) {
+    val filteredList = when (filter) {
+        "none" -> list
+        "isComplete" -> list.filter { task -> task.isComplete }
+        "outstanding" -> list.filter { task -> !task.isComplete }
+        "overdue" -> list.filter { task ->
+            task.taskDueDateTime.isBefore(java.time.Instant.ofEpochMilli(System.currentTimeMillis()).atZone(java.time.ZoneId.systemDefault()).toLocalDateTime()) && !task.isComplete
+        }
+        else -> list
+    }
+    Log.d("filter", "Filtered List: $filteredList")
+    taskAdapterMain.updateList(filteredList)
 }

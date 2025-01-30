@@ -41,7 +41,7 @@ class TaskAdapterMain(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val task = allTaskTables[position]
 
-        val title = task.taskTitle
+        val title = "${task.taskTitle} - ${task.isComplete}"
         val subtitle = if (task.taskCategory?.isNotEmpty() == true) {
             "${task.taskCategory} | ${task.taskDescription}"
         } else {
@@ -73,9 +73,8 @@ class TaskAdapterMain(
         holder.listTaskCheckBox.isChecked = task.isComplete
 
         // Update the task completion status when the checkbox is toggled
-        holder.listTaskCheckBox.setOnCheckedChangeListener { _, isChecked ->
-            task.isComplete = isChecked
-            taskClickToggleIsCheckedInterface.onTaskCheckBoxToggled(task) // Trigger interface method
+        holder.listTaskCheckBox.setOnClickListener {
+            taskClickToggleIsCheckedInterface.onTaskCheckBoxToggled(task)
         }
 
         // Delete task when delete button is clicked
