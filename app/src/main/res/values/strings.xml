@@ -18,5 +18,6 @@
     <string name="outstanding">Outstanding</string>
     <string name="overdue">Overdue</string>
     <string name="complete">Complete</string>
-
+    <string name="update_task">Update Task</string>
+    <string name="create_new_task">Create New Task</string>
 </resources>
