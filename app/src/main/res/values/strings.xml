@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">To Do List</string>
+    <string name="app_name">To-Do List</string>
+    <string name="manage_title">Task Title</string>
+    <string name="manage_title_hint">Enter Task Title</string>
+    <string name="manage_description">Task Title</string>
+    <string name="manage_description_hint">Enter Task Title</string>
+    <string name="manage_category">Category</string>
+    <string name="manage_category_hint">Select or Enter Category (optional)</string>
+    <string name="manage_due_date_time">Due Date and Time</string>
+    <string name="manage_due_date_hint">Select Date</string>
+    <string name="manage_due_time_hint">Select Time</string>
+    <string name="manage_colour">Colour</string>
+    <string name="manage_save_button">Save Task</string>
+    <string name="manage_cancel_button">Cancel</string>
 </resources>

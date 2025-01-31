@@ -16,7 +16,6 @@
             android:id="@+id/manageTaskActivityTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Manage Task"
             android:layout_gravity="center"
             style="@style/TitleStyle" />
 
@@ -33,7 +32,7 @@
             android:id="@+id/manageTaskTitleLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task Title"
+            android:text="@string/manage_title"
             style="@style/LabelStyle" />
 
         <EditText
@@ -46,14 +45,14 @@
             android:drawableStart="@drawable/ic_title_selector"
             android:drawablePadding="12dp"
             android:ems="10"
-            android:hint="Enter Task Title" />
+            android:hint="@string/manage_title_hint" />
 
         <!-- Task Description -->
         <TextView
             android:id="@+id/manageTaskDescriptionLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task Description"
+            android:text="@string/manage_description"
             style="@style/LabelStyle"/>
 
         <EditText
@@ -66,7 +65,7 @@
             android:drawableStart="@drawable/ic_description_selector"
             android:drawablePadding="12dp"
             android:ems="10"
-            android:hint="Enter Task Description"
+            android:hint="@string/manage_description_hint"
             android:inputType="textMultiLine" />
 
         <!-- Task Category -->
@@ -74,7 +73,7 @@
             android:id="@+id/manageTaskCategoryLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category"
+            android:text="@string/manage_category"
             style="@style/LabelStyle" />
 
         <AutoCompleteTextView
@@ -87,14 +86,14 @@
             android:drawableStart="@drawable/ic_category_selector"
             android:drawablePadding="12dp"
             android:ems="10"
-            android:hint="Select or Enter Category (optional)" />
+            android:hint="@string/manage_category_hint" />
 
         <!-- Task Due Date ? Time-->
         <TextView
             android:id="@+id/manageDueDateTimeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Due Date / Time"
+            android:text="@string/manage_due_date_time"
             style="@style/LabelStyle" />
 
         <LinearLayout
@@ -112,7 +111,7 @@
                 android:drawableStart="@drawable/ic_event_selector"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:hint="Select Date"
+                android:hint="@string/manage_due_date_hint"
                 android:layout_weight="1" />
 
             <Space
@@ -129,17 +128,17 @@
                 android:drawableStart="@drawable/ic_schedule_selector"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:hint="Select Time"
+                android:hint="@string/manage_due_time_hint"
                 android:layout_weight="1"/>
 
         </LinearLayout>
 
-        <!-- Task Color -->
+        <!-- Task Colour -->
         <TextView
             android:id="@+id/manageColorLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Color"
+            android:text="@string/manage_colour"
             style="@style/LabelStyle" />
 
         <LinearLayout
@@ -160,8 +159,7 @@
                 android:id="@+id/manageColorText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="#F4BA07" />
+                android:layout_marginStart="12dp" />
 
         </LinearLayout>
 
@@ -170,7 +168,7 @@
             android:id="@+id/manageSaveTaskButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Save Task"
+            android:text="@string/manage_save_button"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/primary"/>
 
@@ -179,7 +177,7 @@
             android:id="@+id/manageCancelButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/manage_cancel_button"
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/primary"/>
 
