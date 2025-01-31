@@ -12,4 +12,11 @@
     <string name="manage_colour">Colour</string>
     <string name="manage_save_button">Save Task</string>
     <string name="manage_cancel_button">Cancel</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+    <string name="all_tasks">All Tasks</string>
+    <string name="outstanding">Outstanding</string>
+    <string name="overdue">Overdue</string>
+    <string name="complete">Complete</string>
+
 </resources>

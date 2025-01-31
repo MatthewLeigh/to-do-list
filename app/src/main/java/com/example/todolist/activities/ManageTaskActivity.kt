@@ -22,10 +22,7 @@ import java.util.Calendar
 
 class ManageTaskActivity : AppCompatActivity() {
 
-    // Declare View Model
-    private lateinit var taskViewModel: TaskViewModel
-
-    // Declare UI Elements
+    // UI Elements
     private lateinit var manageTaskActivityTitle: TextView
     private lateinit var manageTaskTitle: EditText
     private lateinit var manageTaskDescription: EditText
@@ -37,18 +34,21 @@ class ManageTaskActivity : AppCompatActivity() {
     private lateinit var manageSaveTaskButton: Button
     private lateinit var manageCancelButton: Button
 
+    // View Model
+    private lateinit var taskViewModel: TaskViewModel
+
     // Task Properties
     private var manageTaskId = -1
     private var manageIsCompleted = false
     private var manageLocalDateTime = LocalDateTime.now()
     private var manageColor = Color.LTGRAY
     private var intentType = ""
+    private var initialDueDateTime = LocalDateTime.now().plusDays(1)
 
-    // Function: Validate inputs.
+    // Validate User Inputs
     private fun validateInput(): Boolean {
 
         var isValid = true
-
         val title = manageTaskTitle.text.toString().trim()
         val description = manageTaskDescription.text.toString().trim()
 
@@ -62,16 +62,58 @@ class ManageTaskActivity : AppCompatActivity() {
             isValid = false
         }
 
-        if (manageLocalDateTime.isBefore(LocalDateTime.now())) {
-            Toast.makeText(this, "Due date and time must be in the future", Toast.LENGTH_SHORT).show()
-            isValid = false
-        }
-
         return isValid
     }
 
+    // Check if there are unsaved changes in the form.
+    private fun hasUnsavedChanges(): Boolean {
 
+        val title = manageTaskTitle.text.toString().trim()
+        val description = manageTaskDescription.text.toString().trim()
+        val category = manageTaskCategoryAutoComplete.text.toString().trim()
+        val color = manageColor
+        val dueDateTime = manageLocalDateTime
 
+        if (intentType == "Update") {
+
+            val originalTask = TaskTable(
+                taskTitle = intent.extras?.getString("taskTitle") ?: "",
+                taskDescription = intent.extras?.getString("taskDescription") ?: "",
+                taskHexColor = intent.extras?.getInt("taskHexColor", Color.BLACK) ?: Color.BLACK,
+                taskCategory = intent.extras?.getString("taskCategory") ?: "",
+                taskDueDateTime = LocalDateTime.parse(intent.extras?.getString("taskDueDateTime"), DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                isComplete = intent.extras?.getBoolean("taskIsCompleted", false) ?: false
+            )
+
+            return  title != originalTask.taskTitle ||
+                    description != originalTask.taskDescription ||
+                    category != originalTask.taskCategory ||
+                    color != originalTask.taskHexColor ||
+                    dueDateTime != originalTask.taskDueDateTime
+
+        } else {
+
+            return  title.isNotEmpty() ||
+                    description.isNotEmpty() ||
+                    category.isNotEmpty() ||
+                    color != Color.LTGRAY ||
+                    dueDateTime != initialDueDateTime
+        }
+    }
+
+    // Open Alert Dialog to confirm discarding of changes
+    private fun showDiscardChangesDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Discard Changes?")
+            .setMessage("Are you sure you want to discard your changes?")
+            .setPositiveButton("Discard") { _, _ ->
+                super.onBackPressed()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    // Handle create activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -134,7 +176,7 @@ class ManageTaskActivity : AppCompatActivity() {
             manageTaskActivityTitle.text = "Update Task"
 
         } else {
-            manageLocalDateTime = LocalDateTime.now().plusDays(1)
+            manageLocalDateTime = initialDueDateTime
             manageTaskActivityTitle.text = "Create New Task"
         }
 
@@ -227,45 +269,5 @@ class ManageTaskActivity : AppCompatActivity() {
         }
     }
 
-    private fun hasUnsavedChanges(): Boolean {
-        val title = manageTaskTitle.text.toString().trim()
-        val description = manageTaskDescription.text.toString().trim()
-        val category = manageTaskCategoryAutoComplete.text.toString().trim()
-        val color = manageColor
-        val dueDateTime = manageLocalDateTime
 
-        if (intentType == "Update") {
-            val originalTask = TaskTable(
-                taskTitle = intent.extras?.getString("taskTitle") ?: "",
-                taskDescription = intent.extras?.getString("taskDescription") ?: "",
-                taskHexColor = intent.extras?.getInt("taskHexColor", Color.BLACK) ?: Color.BLACK,
-                taskCategory = intent.extras?.getString("taskCategory") ?: "",
-                taskDueDateTime = LocalDateTime.parse(intent.extras?.getString("taskDueDateTime"), DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                isComplete = intent.extras?.getBoolean("taskIsCompleted", false) ?: false
-            )
-
-            return title != originalTask.taskTitle ||
-                    description != originalTask.taskDescription ||
-                    category != originalTask.taskCategory ||
-                    color != originalTask.taskHexColor ||
-                    dueDateTime != originalTask.taskDueDateTime
-        } else {
-            return title.isNotEmpty() ||
-                    description.isNotEmpty() ||
-                    category.isNotEmpty() ||
-                    color != Color.LTGRAY ||
-                    dueDateTime != LocalDateTime.now().plusDays(1)
-        }
-    }
-
-    private fun showDiscardChangesDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Discard Changes?")
-            .setMessage("Are you sure you want to discard your changes?")
-            .setPositiveButton("Discard") { _, _ ->
-                super.onBackPressed()
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
 }

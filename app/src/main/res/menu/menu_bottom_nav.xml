@@ -3,21 +3,21 @@
     <item
         android:id="@+id/nav_all_tasks"
         android:icon="@drawable/ic_circles"
-        android:title="All Tasks" />
+        android:title="@string/all_tasks" />
 
     <item
         android:id="@+id/nav_outsanding_tasks"
         android:icon="@drawable/ic_circle_dots"
-        android:title="Outstanding" />
+        android:title="@string/outstanding" />
 
     <item
         android:id="@+id/nav_overdue_tasks"
         android:icon="@drawable/ic_error"
-        android:title="Overdue" />
+        android:title="@string/overdue" />
 
     <item
         android:id="@+id/nav_completed_tasks"
         android:icon="@drawable/ic_check_circle"
-        android:title="Completed" />
+        android:title="@string/complete" />
 
 </menu>
