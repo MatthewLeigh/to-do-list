@@ -39,7 +39,7 @@ class ManageTaskActivity : AppCompatActivity() {
     private var manageTaskId = -1
     private var manageIsCompleted = false
     private var manageLocalDateTime = LocalDateTime.now()
-    private var manageColor = Color.BLACK
+    private var manageColor = Color.LTGRAY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,18 +96,23 @@ class ManageTaskActivity : AppCompatActivity() {
             val taskDateTimeString = args?.getString("taskDueDateTime")
             manageLocalDateTime = LocalDateTime.parse(taskDateTimeString, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
 
-            manageDueDateLabel.text = manageLocalDateTime.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
-            manageDueTimeLabel.text = manageLocalDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"))
-            manageIsCompleted = args?.getBoolean("taskIsCompleted", false) ?: false
 
-            manageColorButton.setBackgroundColor(manageColor)
-            manageColorText.text = String.format("#%06X", 0xFFFFFF and manageColor)
+            manageIsCompleted = args?.getBoolean("taskIsCompleted", false) ?: false
 
             manageTaskActivityTitle.text = "Update Task"
 
         } else {
+            manageLocalDateTime = LocalDateTime.now().plusDays(1)
             manageTaskActivityTitle.text = "Create New Task"
         }
+
+        // Date Time
+        manageDueDateLabel.text = manageLocalDateTime.format(DateTimeFormatter.ofPattern("MMM dd, yyyy"))
+        manageDueTimeLabel.text = manageLocalDateTime.format(DateTimeFormatter.ofPattern("hh:mm a"))
+
+        // Color
+        manageColorButton.setBackgroundColor(manageColor)
+        manageColorText.text = String.format("#%06X", 0xFFFFFF and manageColor)
 
         // Date Picker
         manageDueDateLabel.setOnClickListener {
@@ -135,7 +140,7 @@ class ManageTaskActivity : AppCompatActivity() {
                 override fun onOk(dialog: AmbilWarnaDialog?, color: Int) {
                     manageColor = color
                     manageColorButton.setBackgroundColor(color)
-                    manageColorText.text = String.format("#%06X", 0xFFFFFF and color) // Convert to hex
+                    manageColorText.text = String.format("#%06X", 0xFFFFFF and color)
                 }
 
                 override fun onCancel(dialog: AmbilWarnaDialog?) {}
