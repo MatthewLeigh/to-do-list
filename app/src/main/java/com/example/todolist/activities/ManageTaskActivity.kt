@@ -42,6 +42,32 @@ class ManageTaskActivity : AppCompatActivity() {
     private var manageLocalDateTime = LocalDateTime.now()
     private var manageColor = Color.LTGRAY
 
+    // Function: Validate inputs.
+    private fun validateInput(): Boolean {
+
+        var isValid = true
+
+        val title = manageTaskTitle.text.toString().trim()
+        val description = manageTaskDescription.text.toString().trim()
+
+        if (title.isEmpty()) {
+            manageTaskTitle.error = "Title cannot be empty"
+            isValid = false
+        }
+
+        if (description.isEmpty()) {
+            manageTaskDescription.error = "Description cannot be empty"
+            isValid = false
+        }
+
+        if (manageLocalDateTime.isBefore(LocalDateTime.now())) {
+            Toast.makeText(this, "Due date and time must be in the future", Toast.LENGTH_SHORT).show()
+            isValid = false
+        }
+
+        return isValid
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -151,6 +177,11 @@ class ManageTaskActivity : AppCompatActivity() {
 
         // On Save Button Click
         manageSaveTaskButton.setOnClickListener {
+
+            if (!validateInput()) {
+                return@setOnClickListener
+            }
+
             val task = TaskTable(
                 taskTitle = manageTaskTitle.text.toString(),
                 taskDescription = manageTaskDescription.text.toString(),

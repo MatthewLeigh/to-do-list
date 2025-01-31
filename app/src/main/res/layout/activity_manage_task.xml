@@ -87,7 +87,7 @@
             android:drawableStart="@drawable/ic_category_selector"
             android:drawablePadding="12dp"
             android:ems="10"
-            android:hint="Select or Enter Category" />
+            android:hint="Select or Enter Category (optional)" />
 
         <!-- Task Due Date ? Time-->
         <TextView
