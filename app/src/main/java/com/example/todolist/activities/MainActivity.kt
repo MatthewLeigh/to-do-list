@@ -161,6 +161,7 @@ class MainActivity :
         setupToolbar()
         setupAddButton()
         setupBottomNavigation()
+        Log.d("MainActivity", "Activity created and initialized")
     }
 
     // Handle task deletion
