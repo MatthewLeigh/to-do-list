@@ -63,13 +63,15 @@ class TaskAdapter(
             holder.listTaskFooter.paintFlags = holder.listTaskFooter.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
 
-        // Set footer to overdue color if overdue.
+        // Set footer to overdue color if overdue, and different icons.
         if (
             task.taskDueDateTime.isBefore(java.time.Instant.ofEpochSecond(System.currentTimeMillis() / 1000).atZone(java.time.ZoneId.systemDefault()).toLocalDateTime())
             && !task.isComplete
         ) {
+            holder.listTaskCheckBox.setButtonDrawable(R.drawable.cusomt_checkbox_overdue)
             holder.listTaskFooter.setTextColor(context.resources.getColor(R.color.overdue, null))
         } else {
+            holder.listTaskCheckBox.setButtonDrawable(R.drawable.custom_checkbox)
             holder.listTaskFooter.setTextColor(context.resources.getColor(R.color.text, null))
         }
 
