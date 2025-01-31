@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,6 +18,7 @@ import com.example.todolist.R
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskAdapter
 import com.example.todolist.task.TaskViewModel
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -32,6 +34,7 @@ class MainActivity :
     lateinit var addButton : FloatingActionButton
     lateinit var taskViewModel : TaskViewModel
     lateinit var mainBottomNav : BottomNavigationView
+    lateinit var toolbar : MaterialToolbar
 
     private var currentFilter: String = "none"
 
@@ -50,6 +53,7 @@ class MainActivity :
         addButton = findViewById(R.id.MainAddButton)
         taskList.layoutManager = LinearLayoutManager(this)
         mainBottomNav = findViewById(R.id.MainBottomNav)
+        toolbar = findViewById(R.id.toolbar)
 
         val taskAdapterMain = TaskAdapter(this, this, this)
         taskList.adapter = taskAdapterMain
@@ -60,6 +64,9 @@ class MainActivity :
                 applyFilter(it, currentFilter, taskAdapterMain)
             }
         })
+
+        toolbar.title = "To-Do List"
+        toolbar.subtitle = "Manage your tasks"
 
         addButton.setOnClickListener {
             val intent = Intent(this@MainActivity, ManageTaskActivity::class.java)
