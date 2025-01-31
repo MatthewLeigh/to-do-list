@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todolist.BottomSheetDialog
+import com.example.todolist.dialogs.BottomSheetDialog
 import com.example.todolist.R
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskAdapter
