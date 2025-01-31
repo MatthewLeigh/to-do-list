@@ -7,4 +7,9 @@
     <color name="primary">#A640FA</color>
     <color name="overdue">#FF0000</color>
     <color name="text">#FF000000</color>
+    <color name="appBackground">#91ACF2</color>
+    <color name="cardForeground">#E9FFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+
 </resources>
