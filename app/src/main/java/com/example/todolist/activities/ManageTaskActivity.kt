@@ -1,5 +1,6 @@
 package com.example.todolist.activities
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
@@ -41,6 +42,7 @@ class ManageTaskActivity : AppCompatActivity() {
     private var manageIsCompleted = false
     private var manageLocalDateTime = LocalDateTime.now()
     private var manageColor = Color.LTGRAY
+    private var intentType = ""
 
     // Function: Validate inputs.
     private fun validateInput(): Boolean {
@@ -67,6 +69,8 @@ class ManageTaskActivity : AppCompatActivity() {
 
         return isValid
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -110,7 +114,7 @@ class ManageTaskActivity : AppCompatActivity() {
 
         // Get Bundle Data
         val args = intent.extras
-        val intentType = if (args != null) "Update" else "Create"
+        intentType = if (args != null) "Update" else "Create"
 
         if (intentType == "Update") {
             // Retrieve task details from the Bundle
@@ -204,5 +208,64 @@ class ManageTaskActivity : AppCompatActivity() {
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
         }
+
+        // Cancel button
+        manageCancelButton.setOnClickListener {
+            if (hasUnsavedChanges()) {
+                showDiscardChangesDialog()
+            } else {
+                finish()
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (hasUnsavedChanges()) {
+            showDiscardChangesDialog()
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun hasUnsavedChanges(): Boolean {
+        val title = manageTaskTitle.text.toString().trim()
+        val description = manageTaskDescription.text.toString().trim()
+        val category = manageTaskCategoryAutoComplete.text.toString().trim()
+        val color = manageColor
+        val dueDateTime = manageLocalDateTime
+
+        if (intentType == "Update") {
+            val originalTask = TaskTable(
+                taskTitle = intent.extras?.getString("taskTitle") ?: "",
+                taskDescription = intent.extras?.getString("taskDescription") ?: "",
+                taskHexColor = intent.extras?.getInt("taskHexColor", Color.BLACK) ?: Color.BLACK,
+                taskCategory = intent.extras?.getString("taskCategory") ?: "",
+                taskDueDateTime = LocalDateTime.parse(intent.extras?.getString("taskDueDateTime"), DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                isComplete = intent.extras?.getBoolean("taskIsCompleted", false) ?: false
+            )
+
+            return title != originalTask.taskTitle ||
+                    description != originalTask.taskDescription ||
+                    category != originalTask.taskCategory ||
+                    color != originalTask.taskHexColor ||
+                    dueDateTime != originalTask.taskDueDateTime
+        } else {
+            return title.isNotEmpty() ||
+                    description.isNotEmpty() ||
+                    category.isNotEmpty() ||
+                    color != Color.LTGRAY ||
+                    dueDateTime != LocalDateTime.now().plusDays(1)
+        }
+    }
+
+    private fun showDiscardChangesDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Discard Changes?")
+            .setMessage("Are you sure you want to discard your changes?")
+            .setPositiveButton("Discard") { _, _ ->
+                super.onBackPressed()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 }
