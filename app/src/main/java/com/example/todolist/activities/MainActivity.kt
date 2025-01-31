@@ -82,7 +82,6 @@ class MainActivity :
             Log.d("MainActivity", "Add button clicked")
             val intent = Intent(this@MainActivity, ManageTaskActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 
