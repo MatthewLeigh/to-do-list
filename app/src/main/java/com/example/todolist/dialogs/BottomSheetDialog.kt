@@ -1,4 +1,4 @@
-package com.example.todolist
+package com.example.todolist.dialogs
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.example.todolist.R
 import com.example.todolist.activities.ManageTaskActivity
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskViewModel
