@@ -34,6 +34,7 @@ class ManageTaskActivity : AppCompatActivity() {
     private lateinit var manageColorText: TextView
     private lateinit var manageColorButton: Button
     private lateinit var manageSaveTaskButton: Button
+    private lateinit var manageCancelButton: Button
 
     // Task Properties
     private var manageTaskId = -1
@@ -64,6 +65,7 @@ class ManageTaskActivity : AppCompatActivity() {
         manageColorText = findViewById(R.id.manageColorText)
         manageColorButton = findViewById(R.id.manageColorButton)
         manageSaveTaskButton = findViewById(R.id.manageSaveTaskButton)
+        manageCancelButton  = findViewById(R.id.manageCancelButton)
 
         // Setup Category Dropdown
         val categoryList = mutableListOf<String>()

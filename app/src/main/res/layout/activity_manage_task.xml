@@ -174,5 +174,14 @@
             android:layout_marginTop="24dp"
             android:backgroundTint="@color/primary"/>
 
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/manageCancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/primary"/>
+
     </LinearLayout>
 </ScrollView>
