@@ -12,8 +12,9 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:background="?attr/colorPrimary"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:background="@color/toolbarBackground"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:titleTextColor="@color/white"
