@@ -47,7 +47,7 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
 
     // Countdown Timer
     private lateinit var countDownTimer: CountDownTimer
-    private val updateInterval = 1000L // Update every second
+    private val updateInterval = 1000L
 
     // Companion Object
     companion object {

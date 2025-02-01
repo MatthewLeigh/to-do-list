@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
@@ -32,6 +33,7 @@ class MainActivity :
     private lateinit var addButton: FloatingActionButton
     private lateinit var mainBottomNav: BottomNavigationView
     private lateinit var toolbar: MaterialToolbar
+    private lateinit var toggleCountdownSwitch: SwitchCompat
 
     // ViewModel
     private lateinit var taskViewModel: TaskViewModel
@@ -39,12 +41,16 @@ class MainActivity :
     // Current filter state
     private var currentFilter: String = "none"
 
+    // Toggle Due Date / Countdown State
+    private var showCountdown: Boolean = false
+
     // Initialize UI components
     private fun setupUI() {
         taskList = findViewById(R.id.MainTaskListRV)
         addButton = findViewById(R.id.MainAddButton)
         mainBottomNav = findViewById(R.id.MainBottomNav)
         toolbar = findViewById(R.id.toolbar)
+        toggleCountdownSwitch = findViewById(R.id.toggleCountdownSwitch)
     }
 
     // Set up ViewModel
@@ -74,6 +80,14 @@ class MainActivity :
     private fun setupToolbar() {
         toolbar.title = "To-Do List"
         toolbar.subtitle = "Manage your tasks"
+
+        // Set up the toggle switch listener
+        toggleCountdownSwitch.setOnCheckedChangeListener { _, isChecked ->
+
+            showCountdown = isChecked
+            Log.d("MainActivity", "Toggle switch changed. Show countdown: $showCountdown")
+            (taskList.adapter as TaskAdapter).updateShowCountdown(showCountdown)
+        }
     }
 
     // Set up FAB click listener
