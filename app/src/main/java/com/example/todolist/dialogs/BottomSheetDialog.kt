@@ -126,10 +126,6 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
         val dueDateTime = taskDueDateTime!!
         val currentTime = LocalDateTime.now()
 
-        // Calculate the time difference in milliseconds
-        val duration = Duration.between(currentTime, dueDateTime)
-        val millisInFuture = duration.toMillis()
-
         // Start the countdown timer
         countDownTimer = object : CountDownTimer(Long.MAX_VALUE, updateInterval) {
             override fun onTick(millisUntilFinished: Long) {
