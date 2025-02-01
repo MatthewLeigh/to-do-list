@@ -20,4 +20,6 @@
     <string name="complete">Complete</string>
     <string name="update_task">Update Task</string>
     <string name="create_new_task">Create New Task</string>
+    <string name="task_complete">Task Complete!</string>
+
 </resources>

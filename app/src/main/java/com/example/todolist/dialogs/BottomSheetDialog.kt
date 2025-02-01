@@ -2,19 +2,25 @@ package com.example.todolist.dialogs
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.R
 import com.example.todolist.activities.ManageTaskActivity
 import com.example.todolist.task.TaskTable
 import com.example.todolist.task.TaskViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.time.Duration
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class BottomSheetDialog : BottomSheetDialogFragment() {
 
@@ -22,6 +28,8 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     private lateinit var sheetTitle: TextView
     private lateinit var sheetCategory: TextView
     private lateinit var sheetDueDate: TextView
+    private lateinit var sheetCountdown: TextView
+    private lateinit var countdownIcon: ImageView
     private lateinit var sheetDescription: TextView
     private lateinit var sheetDeleteText: LinearLayout
     private lateinit var sheetUpdateText: LinearLayout
@@ -33,8 +41,13 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     private var taskId: Int = -1
     private var taskTitle: String = ""
     private var taskCategory: String = ""
-    private var taskDueDateTime: String = ""
+    private var taskDueDateTime: LocalDateTime? = null
     private var taskDescription: String = ""
+    private var taskIsCompleted: Boolean = false
+
+    // Countdown Timer
+    private lateinit var countDownTimer: CountDownTimer
+    private val updateInterval = 1000L // Update every second
 
     // Companion Object
     companion object {
@@ -60,6 +73,8 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
         sheetTitle = view.findViewById(R.id.sheetTitle)
         sheetCategory = view.findViewById(R.id.sheetCategory)
         sheetDueDate = view.findViewById(R.id.sheetDueDate)
+        sheetCountdown = view.findViewById(R.id.sheetCountdown)
+        countdownIcon = view.findViewById(R.id.countdownIcon)
         sheetDescription = view.findViewById(R.id.sheetDescription)
         sheetDeleteText = view.findViewById(R.id.sheetDeleteText)
         sheetUpdateText = view.findViewById(R.id.sheetUpdateText)
@@ -71,8 +86,12 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
         taskId = arguments?.getInt("taskId") ?: -1
         taskTitle = arguments?.getString("taskTitle") ?: ""
         taskCategory = arguments?.getString("taskCategory") ?: ""
-        taskDueDateTime = arguments?.getString("taskDueDateTime") ?: ""
         taskDescription = arguments?.getString("taskDescription") ?: ""
+        taskIsCompleted = arguments?.getBoolean("taskIsCompleted") ?: false
+
+        val dateTimeString = arguments?.getString("taskDueDateTime") ?: ""
+        taskDueDateTime = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+
         Log.d("BottomSheetDialog", "Arguments assigned to properties")
     }
 
@@ -80,9 +99,81 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     private fun setText() {
         sheetTitle.text = taskTitle
         sheetCategory.text = taskCategory
-        sheetDueDate.text = taskDueDateTime
         sheetDescription.text = taskDescription
+        sheetDueDate.text = "${DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a").format(taskDueDateTime)}"
+
         Log.d("BottomSheetDialog", "Text set for UI components")
+    }
+
+    // Handle completed task
+    private fun handleCompletedTask() {
+        sheetCountdown.text = getString(R.string.task_complete)
+        sheetCountdown.setTextColor(ContextCompat.getColor(requireContext(), R.color.text))
+        countdownIcon.setImageResource(R.drawable.ic_check_circle)
+        Log.d("BottomSheetDialog", "UI set for completed task")
+    }
+
+    // Start the countdown timer if task is not completed.
+    private fun startCountdown() {
+
+        if (taskIsCompleted) {
+            handleCompletedTask()
+            return
+        }
+
+        Log.d("BottomSheetDialog", "Starting countdown timer")
+
+        val dueDateTime = taskDueDateTime!!
+        val currentTime = LocalDateTime.now()
+
+        // Calculate the time difference in milliseconds
+        val duration = Duration.between(currentTime, dueDateTime)
+        val millisInFuture = duration.toMillis()
+
+        // Start the countdown timer
+        countDownTimer = object : CountDownTimer(Long.MAX_VALUE, updateInterval) {
+            override fun onTick(millisUntilFinished: Long) {
+
+                val overdue = dueDateTime.isBefore(currentTime)
+
+                val duration = if (overdue) {
+                    Duration.between(dueDateTime, LocalDateTime.now())
+                } else {
+                    Duration.between(LocalDateTime.now(), dueDateTime)
+                }
+
+                val days = duration.toDays()
+                val hours = duration.toHours() % 24
+                val minutes = duration.toMinutes() % 60
+                val seconds = duration.seconds % 60
+
+                val countdownText = buildString {
+                    if (overdue) append("- ")
+                    if (days > 0) append("$days days, ")
+                    if (hours > 0) append("$hours hours, ")
+                    if (minutes > 0) append("$minutes minutes, ")
+                    append("$seconds seconds")
+                }
+
+                // Update the countdown TextView
+                sheetCountdown.text = countdownText
+
+                // Update colors and icon based on overdue status
+                if (overdue) {
+                    sheetCountdown.setTextColor(ContextCompat.getColor(requireContext(), R.color.overdue))
+                    sheetDueDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.overdue))
+                    countdownIcon.setImageResource(R.drawable.ic_circle_error_overdue)
+
+                } else {
+                    sheetCountdown.setTextColor(ContextCompat.getColor(requireContext(), R.color.text))
+                    sheetDueDate.setTextColor(ContextCompat.getColor(requireContext(), R.color.text))
+                    countdownIcon.setImageResource(R.drawable.ic_alarm)
+                }
+            }
+
+            // Needed for CountDownTimer object, but never used since the timer runs into negatives.
+            override fun onFinish() { }
+        }.start()
     }
 
     // Delete task from database
@@ -125,10 +216,19 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
         setupUI(view)
         readArguments()
         setText()
+        startCountdown()
         setupOnClickListeners()
 
         Log.d("BottomSheetDialog", "Dialog created and initialized")
 
         return view
+    }
+
+    // Clean up the countdown timer when the dialog is destroyed
+    override fun onDestroyView() {
+        super.onDestroyView()
+        if (::countDownTimer.isInitialized) {
+            countDownTimer.cancel()
+        }
     }
 }
