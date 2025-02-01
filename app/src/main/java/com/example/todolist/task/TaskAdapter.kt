@@ -91,18 +91,19 @@ class TaskAdapter(
         Log.d("TaskAdapter", "Show countdown updated: $showCountdown")
     }
 
-    // Apply or remove strikethrough effect based on task completion status
-    private fun applyStrikethrough(holder: ViewHolder, isComplete: Boolean) {
+    // Apply UI changes to completed tasks
+    private fun applyTaskComplete(holder: ViewHolder, isComplete: Boolean) {
 
         if (isComplete) {
             holder.listTaskTitle.paintFlags = holder.listTaskTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             holder.listTaskSubtitle.paintFlags = holder.listTaskSubtitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            holder.listTaskFooter.paintFlags = holder.listTaskFooter.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            holder.listTaskFooter.setText(R.string.task_complete)
 
+            
         } else {
             holder.listTaskTitle.paintFlags = holder.listTaskTitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
             holder.listTaskSubtitle.paintFlags = holder.listTaskSubtitle.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-            holder.listTaskFooter.paintFlags = holder.listTaskFooter.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+
         }
         Log.d("TaskAdapter", "Applied strikethrough for task completion: $isComplete")
     }
@@ -124,6 +125,10 @@ class TaskAdapter(
 
     // Update the countdown text for a specific ViewHolder
     private fun updateCountdownText(holder: ViewHolder, task: TaskTable) {
+
+        if (task.isComplete) {
+            return
+        }
 
         val overdue = task.taskDueDateTime.isBefore(LocalDateTime.now())
 
@@ -203,8 +208,8 @@ class TaskAdapter(
         val task = allTaskTables[position]
 
         setupUI(holder, task)
-        applyStrikethrough(holder, task.isComplete)
         applyOverdueUI(holder, task)
+        applyTaskComplete(holder, task.isComplete)
         setupOnClickListeners(holder, task)
 
         Log.d("TaskAdapter", "Bound data to ViewHolder at position: $position")
