@@ -174,6 +174,10 @@ class MainActivity :
         layoutParams.bottomMargin = 60
         snackbarView.layoutParams = layoutParams
 
+        snackbarView.setOnClickListener {
+            snackbar.dismiss()
+        }
+
         snackbar.show()
     }
 
