@@ -3,17 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="grey">#5F5F5F</color>
     <color name="white">#FFFFFFFF</color>
-
     <color name="primary">#A640FA</color>
     <color name="overdue">#FF0000</color>
     <color name="text">#FF000000</color>
     <color name="appBackground">#91ACF2</color>
-    <color name="cardForeground">#E9FFFFFF</color>
+    <color name="cardForeground">#B3FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="bottomNavBackground">#FFFFFF</color>
     <color name="bottomNavBorder">#E0E0E0</color>
     <color name="toolbarBackground">#000089</color>
-
-
-
 </resources>

@@ -66,7 +66,7 @@ class TaskAdapter(
         val listTaskTitle: TextView = itemView.findViewById(R.id.listTaskTitle)
         val listTaskSubtitle: TextView = itemView.findViewById(R.id.listTaskSubtitle)
         val listTaskFooter: TextView = itemView.findViewById(R.id.listTaskFooter)
-        val listTaskHighlight: ConstraintLayout = itemView.findViewById(R.id.listTaskHighlight)
+        val listTaskHighlight: View = itemView.findViewById(R.id.listTaskHighlight)
         val listTaskCheckBox: CheckBox = itemView.findViewById(R.id.listTaskCheckBox)
     }
 
