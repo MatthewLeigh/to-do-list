@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todolist.R
 import java.time.Duration
@@ -118,7 +117,7 @@ class TaskAdapter(
 
         } else {
             holder.listTaskCheckBox.setButtonDrawable(R.drawable.custom_checkbox)
-            holder.listTaskFooter.setTextColor(context.resources.getColor(R.color.text, null))
+            holder.listTaskFooter.setTextColor(context.resources.getColor(R.color.textMuted, null))
         }
         Log.d("TaskAdapter", "Applied overdue UI for task: ${task.taskTitle}, isOverdue: $overdue")
     }
