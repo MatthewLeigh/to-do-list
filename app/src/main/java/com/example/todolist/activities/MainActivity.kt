@@ -3,6 +3,7 @@ package com.example.todolist.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -162,9 +163,18 @@ class MainActivity :
 
     // Helper function to show Snackbar
     private fun showSnackbar(message: String) {
-        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
-            .setAnchorView(mainBottomNav)
-            .show()
+
+        val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackbarView = snackbar.view
+        val layoutParams = snackbarView.layoutParams as ViewGroup.MarginLayoutParams
+
+        snackbar.setAnchorView(mainBottomNav)
+        layoutParams.marginStart = 24
+        layoutParams.marginEnd = 280
+        layoutParams.bottomMargin = 60
+        snackbarView.layoutParams = layoutParams
+
+        snackbar.show()
     }
 
     // Check for return message from ManageTaskActivity
