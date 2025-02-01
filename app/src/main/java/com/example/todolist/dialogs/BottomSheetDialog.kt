@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.todolist.R
@@ -176,7 +175,6 @@ class BottomSheetDialog : BottomSheetDialogFragment() {
     private fun deleteTask() {
         if (taskId != -1) {
             taskViewModel.deleteById(taskId)
-            Toast.makeText(requireContext(), "$taskTitle Deleted", Toast.LENGTH_LONG).show()
             dismiss()
             Log.d("BottomSheetDialog", "$taskTitle Deleted")
         }
