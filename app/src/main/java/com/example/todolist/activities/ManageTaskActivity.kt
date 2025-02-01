@@ -182,20 +182,26 @@ class ManageTaskActivity : AppCompatActivity() {
                 isComplete = manageIsCompleted
             )
 
+            var snackbarMessage = ""
+
             if (intentType == "Update") {
                 task.taskId = manageTaskId
                 taskViewModel.updateTask(task)
-                Toast.makeText(this, "Task Updated", Toast.LENGTH_LONG).show()
+                snackbarMessage = "Task updated successfully!"
                 Log.d("ManageTaskActivity", "Task updated: ID = $manageTaskId")
             } else {
                 taskViewModel.insertTask(task)
-                Toast.makeText(this, "Task Created", Toast.LENGTH_LONG).show()
+                snackbarMessage = "Task created successfully!"
                 Log.d("ManageTaskActivity", "Task created: Title = ${task.taskTitle}")
             }
 
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            val intent = Intent(applicationContext, MainActivity::class.java).apply {
+                putExtra("snackbar_message", snackbarMessage)
+            }
+            startActivity(intent)
             finish()
         }
+
         Log.d("ManageTaskActivity", "Save button initialized")
     }
 

@@ -167,6 +167,14 @@ class MainActivity :
             .show()
     }
 
+    // Check for return message from ManageTaskActivity
+    private fun checkForSnackbarMessageInIntent() {
+        val snackbarMessage = intent.getStringExtra("snackbar_message")
+        if (!snackbarMessage.isNullOrEmpty()) {
+            showSnackbar(snackbarMessage)
+        }
+    }
+
     // Handle create activity
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -184,6 +192,7 @@ class MainActivity :
         setupToolbar()
         setupAddButton()
         setupBottomNavigation()
+        checkForSnackbarMessageInIntent()
         Log.d("MainActivity", "Activity created and initialized")
     }
 
