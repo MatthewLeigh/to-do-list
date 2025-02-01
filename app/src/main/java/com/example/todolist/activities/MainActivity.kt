@@ -79,12 +79,17 @@ class MainActivity :
     // Set up toolbar
     private fun setupToolbar() {
         toolbar.title = "To-Do List"
-        toolbar.subtitle = "Manage your tasks"
+        toolbar.subtitle = "All Tasks"
 
         // Set up the toggle switch listener
         toggleCountdownSwitch.setOnCheckedChangeListener { _, isChecked ->
 
             showCountdown = isChecked
+            toggleCountdownSwitch.text = if (isChecked) {
+                "Countdown"
+            } else {
+                "Due Date"
+            }
             Log.d("MainActivity", "Toggle switch changed. Show countdown: $showCountdown")
             (taskList.adapter as TaskAdapter).updateShowCountdown(showCountdown)
         }
@@ -107,24 +112,28 @@ class MainActivity :
                     currentFilter = "none"
                     Log.d("MainActivity", "Filter: Show all tasks")
                     applyFilter(taskViewModel.allTasks.value ?: emptyList(), currentFilter, taskList.adapter as TaskAdapter)
+                    toolbar.subtitle = "All Tasks"
                     true
                 }
                 R.id.nav_completed_tasks -> {
                     currentFilter = "isComplete"
                     Log.d("MainActivity", "Filter: Show completed tasks")
                     applyFilter(taskViewModel.allTasks.value ?: emptyList(), currentFilter, taskList.adapter as TaskAdapter)
+                    toolbar.subtitle = "Complete Tasks"
                     true
                 }
                 R.id.nav_outsanding_tasks -> {
                     currentFilter = "outstanding"
                     Log.d("MainActivity", "Filter: Show outstanding tasks")
                     applyFilter(taskViewModel.allTasks.value ?: emptyList(), currentFilter, taskList.adapter as TaskAdapter)
+                    toolbar.subtitle = "Outstanding Tasks"
                     true
                 }
                 R.id.nav_overdue_tasks -> {
                     currentFilter = "overdue"
                     Log.d("MainActivity", "Filter: Show overdue tasks")
                     applyFilter(taskViewModel.allTasks.value ?: emptyList(), currentFilter, taskList.adapter as TaskAdapter)
+                    toolbar.subtitle = "Overdue Tasks"
                     true
                 }
                 else -> false

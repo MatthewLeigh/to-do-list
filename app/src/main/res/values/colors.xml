@@ -3,7 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="grey">#5F5F5F</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#A640FA</color>
+    <color name="primary">#FD7317</color>
+    <color name="secondary">#672ABD</color>
     <color name="overdue">#FF0000</color>
     <color name="text">#FF000000</color>
     <color name="appBackground">#91ACF2</color>

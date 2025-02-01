@@ -163,23 +163,38 @@
 
         </LinearLayout>
 
-        <!-- Save Button -->
-        <Button
-            android:id="@+id/manageSaveTaskButton"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/manage_save_button"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/primary"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp">
 
-        <!-- Cancel Button -->
-        <Button
-            android:id="@+id/manageCancelButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/manage_cancel_button"
-            android:layout_marginTop="24dp"
-            android:backgroundTint="@color/primary"/>
+            <!-- Cancel Button -->
+            <Button
+                android:id="@+id/manageCancelButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/manage_cancel_button"
+                android:padding="16dp"
+                android:textColor="@color/black"
+                android:background="@drawable/rounded_button_outlined" />
 
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="match_parent" />
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/manageSaveTaskButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/manage_save_button"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_button" />
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

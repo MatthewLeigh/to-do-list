@@ -2,7 +2,7 @@
     <string name="app_name">To-Do List</string>
     <string name="manage_title">Task Title</string>
     <string name="manage_title_hint">Enter Task Title</string>
-    <string name="manage_description">Task Title</string>
+    <string name="manage_description">Task Description</string>
     <string name="manage_description_hint">Enter Task Title</string>
     <string name="manage_category">Category</string>
     <string name="manage_category_hint">Select or Enter Category (optional)</string>
