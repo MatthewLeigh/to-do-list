@@ -33,26 +33,6 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         taskRepository.delete(taskTable)
     }
 
-    fun getTaskById(taskId: Int) = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.getTaskById(taskId)
-    }
-
-    fun getAllUniqueCategories() = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.getAllUniqueCategories()
-    }
-
-    fun getCompletedTasks() = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.getCompletedTasks()
-    }
-
-    fun getOutstandingTasks() = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.getOutstandingTasks()
-    }
-
-    fun getOverdueTasks() = viewModelScope.launch(Dispatchers.IO) {
-        taskRepository.getOverdueTasks()
-    }
-
     fun updateTaskCompletionStatus(taskId: Int, isComplete: Boolean) = viewModelScope.launch(Dispatchers.IO) {
         taskRepository.updateTaskCompletionStatus(taskId, isComplete)
     }

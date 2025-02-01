@@ -29,15 +29,6 @@ interface TaskDao {
     @Query("SELECT DISTINCT category FROM tasks WHERE category != '' ORDER BY category ASC")
     fun getAllUniqueCategories(): LiveData<List<String>>
 
-    @Query("SELECT * FROM tasks WHERE isComplete == 1 ORDER BY dueDateTime ASC")
-    fun getCompletedTasks(): LiveData<List<TaskTable>>
-
-    @Query("SELECT * FROM tasks WHERE isComplete == 0 ORDER BY dueDateTime ASC")
-    fun getOutstandingTasks(): LiveData<List<TaskTable>>
-
-    @Query("SELECT * FROM tasks WHERE isComplete == 0 AND dueDateTime < (strftime('%s', 'now') * 1000) ORDER BY dueDateTime ASC")
-    fun getOverdueTasks(): LiveData<List<TaskTable>>
-
     @Query("UPDATE tasks SET isComplete = :isComplete WHERE taskId = :taskId")
     suspend fun updateTaskCompletionStatus(taskId: Int, isComplete: Boolean)
 
