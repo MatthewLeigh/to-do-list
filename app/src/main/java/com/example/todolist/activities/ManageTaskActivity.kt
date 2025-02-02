@@ -224,14 +224,25 @@ class ManageTaskActivity : AppCompatActivity() {
         var isValid = true
         val title = manageTaskTitle.text.toString().trim()
         val description = manageTaskDescription.text.toString().trim()
+        val category = manageTaskCategoryAutoComplete.text.toString().trim()
 
         if (title.isEmpty()) {
             manageTaskTitle.error = "Title cannot be empty"
             isValid = false
         }
 
-        if (description.isEmpty()) {
-            manageTaskDescription.error = "Description cannot be empty"
+        if (title.length > 50) {
+            manageTaskDescription.error = "Title cannot exceed 50 characters"
+            isValid = false
+        }
+
+        if (description.length > 500) {
+            manageTaskDescription.error = "Description cannot exceed 500 characters"
+            isValid = false
+        }
+
+        if (category.length > 50) {
+            manageTaskDescription.error = "Category cannot exceed 50 characters"
             isValid = false
         }
 
