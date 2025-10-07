@@ -1,2 +1,2 @@
 # To-Do-List
-Custom Project for COS30017
+Simple To Do List developed with for Android with Kotlin for a university project.
